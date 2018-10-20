@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+// Slider
+//
+// Slider component
+//
+// Markup: header.hbs
+//
+// Weight: 0
+//
+// Style guide: Styleguide.Components.Slider
+
+/* ==========================================================================
+   Slider
+   ========================================================================== */
+
+$component: 'slider';
+$glide-class: $component;
+$glide-element-separator: '__';
+$glide-modifier-separator: '--';
+
+@import "slider.core";
+
+// block
+%#{$component} {
+	display: block;
+}
+
+// element
+.#{$component}__slide {
+	text-align: center;
+	padding: 10px;
+	background: color('grey-light');
+	border-radius: 10px;
+}
+
+// modifier
+
+// animation
+
+// component class selector
+.#{$component} {
+	@extend %#{$component};
+}

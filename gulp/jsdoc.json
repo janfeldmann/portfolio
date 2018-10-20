@@ -1,0 +1,38 @@
+{
+	"tags": {
+		"allowUnknownTags": true,
+		"dictionaries": [
+			"jsdoc",
+			"closure"
+		]
+	},
+	"opts": {
+		"destination": "./src/docs/dist/jsdocs",
+		"tutorials": "./src/docs/tutorials"
+	},
+	"source": {
+		"includePattern": ".+\\.js(doc|x)?$",
+		"excludePattern": "bra/|node_modules/"
+	},
+	"plugins": [],
+	"templates": {
+		"systemName"            : "Capitan",
+		"copyright"             : "Copyright brandung GmbH & Co.KG",
+		"includeDate"           : "false",
+		"navType"               : "inline",
+		"theme"                 : "capitan",
+		"linenums"              : "true",
+		"outputSourceFiles"     : "true" ,
+		"outputSourcePath"      : "true",
+		"dateFormat"            : "DD.MM.YYYY",
+		"syntaxTheme"           : "dark",
+		"search"                : "true",
+		"default": {
+			"staticFiles": {
+				"include": [
+					"./src/docs/assets"
+				]
+			}
+		}
+	}
+}

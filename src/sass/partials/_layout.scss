@@ -1,0 +1,214 @@
+@charset "utf-8";
+
+/**
+ * Capitan layout.scss v2.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * https://www.brandung.de/
+ *
+ * Date: 2016-09-05
+ * MIT License (MIT)
+ */
+
+/* ==========================================================================
+   Global Layout
+   ========================================================================== */
+
+* {
+	@include prefix(box-sizing, border-box);
+}
+
+html,
+body {
+	font-size: $body-font-size;
+	min-height: 100vh;
+}
+
+body {
+	@include font();
+	background: color('white');
+	color: color('grey-dark');
+	line-height: 1.4;
+	margin: 0;
+	position: relative;
+}
+
+main {
+	display: block;
+}
+
+#page-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	min-height: 100vh;
+
+	& > * {
+		width: 100%;
+	}
+}
+
+/* ==========================================================================
+   Grid overrides
+   ========================================================================== */
+
+// Container widths
+.container {
+	min-width: ($container-min-widths / $body-font-size-px) + em;
+	max-width: ($container-max-widths / $body-font-size-px) + em;
+	margin: 0 auto;
+	padding: 0 $grid-gutter-width;
+}
+
+// Row
+.row {
+	margin-bottom: spacer('half');
+
+	// smaller offset on mobile
+	@include respondMax(point('max-xs')) {
+		margin: 0 (-$grid-gutter-width / 4);
+	}
+
+	// fix for incorrect use of row without columns
+	& > *:not([class*="col-"]) {
+		width: 100%;
+		flex-basis: 100%;
+	}
+}
+
+.row--divided {
+	@include respondMin(point('min-md')) {
+	    margin: 0 (-40px);
+	}
+
+	& > [class*="col-"] {
+		&:first-child {
+			@include respondMin(point('min-md')) {
+				border-right: 1px solid color('grey-light');
+			}
+		}
+
+		.btn-group {
+			@include respondMin(point('min-md')) {
+			    margin-top: auto;
+			}
+		}
+
+		@include respondMin(point('min-md')) {
+		    padding: 0 40px;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}
+
+[class*="col-"] {
+	// smaller offset on mobile
+	@include respondMax(point('max-xs')) {
+		padding: 0 spacer('half');
+	}
+}
+
+/* ==========================================================================
+  Content Elements
+  ========================================================================== */
+
+img {
+	height: auto;
+	outline: 0;
+	max-width: 100%;
+}
+
+hr {
+	margin: 20px 0;
+	border-top: 1px solid color('grey-light');
+}
+
+/* ==========================================================================
+  Magento2
+  ========================================================================== */
+
+ul {
+	&,
+	& > li {
+		margin: 0;
+	}
+}
+
+[data-block="servicelayer"] {
+	position: relative;
+}
+
+.block-servicelayer {
+	top: 33px;
+	margin: 0;
+	list-style: none none;
+	background: color('white');
+	border: 1px solid color('grey-medium');
+	min-width: 100%;
+	box-sizing: border-box;
+	display: none;
+	position: absolute;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
+	padding: 0;
+	right: 0;
+	width: 640px;
+	z-index: 101;
+
+	hr,
+	p {
+		margin: 0;
+	}
+
+	& > div > div {
+		padding: $grid-gutter-width;
+	}
+
+	&:before {
+		display: none;
+	}
+}
+
+.is-dropdown-open {
+	color: color('ci');
+}
+
+body:not(.cms-index-index,.checkout-index-index) .page-main {
+	@extend .container;
+}
+
+.checkout-index-index .page-main {
+	max-width: none;
+	padding: 0;
+	margin: 0;
+}
+
+.page-layout-2columns-left {
+	.column.main {
+		@include respondMin(point('min-md')) {
+			width: 65%;
+		}
+
+		@include respondMin(point('min-lg')) {
+			width: 75%;
+		}
+
+		@include respondMin(point('min-xl')) {
+			width: 65%;
+		}
+	}
+
+	.sidebar {
+		@include respondMin(point('min-md')) {
+			width: 35%;
+		}
+
+		@include respondMin(point('min-lg')) {
+			width: 25%;
+		}
+
+		@include respondMin(point('min-xl')) {
+			width: 35%;
+		}
+	}
+}

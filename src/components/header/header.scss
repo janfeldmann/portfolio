@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+// Header
+//
+// Header component
+//
+// Markup: header.hbs
+//
+// Weight: 0
+//
+// Style guide: Styleguide.Components.Header
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+$component: 'header';
+
+// block
+%#{$component} {
+	z-index: 10;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	padding: 10px 0;
+	color: color('white');
+}
+
+
+// element
+.#{$component}__content {
+	display: flex;
+	align-items: baseline;
+	justify-content: flex-end;
+}
+
+// modifier
+
+
+// component class selector
+.#{$component} {
+	@extend %#{$component};
+}

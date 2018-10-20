@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+/**
+ * Capitan typo.scss v1.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * https://www.brandung.de/
+ *
+ * Date: 2016-04-05
+ * MIT License (MIT)
+ */
+
+
+/* ==========================================================================
+   Typo
+   ========================================================================== */
+
+h1,
+.util-h1,
+h2,
+.util-h2,
+h3,
+.util-h3,
+h4,
+.util-h4,
+h5,
+.util-h5,
+h6,
+.util-h6 {
+	@include font($ff-heading, $typo-weight-bold);
+	margin-top: 0;
+}
+
+h1,
+.util-h1 {
+	@include fontSizeREM(38);
+	line-height: 1.17;
+}
+
+h2,
+.util-h2 {
+	@include font($ff-heading, $typo-weight-bold);
+	@include fontSizeREM(28);
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+h3,
+.util-h3 {
+	@include fontSizeREM(18);
+	line-height: 1.17;
+	letter-spacing: 0.7px;
+}
+
+h4,
+.util-h4 {
+	@include fontSizeREM(16);
+	line-height: 1.19;
+	letter-spacing: 0.6px;
+}
+
+h5,
+.util-h5 {
+	@include fontSizeREM(14);
+	line-height: 1.14;
+	letter-spacing: 0.6px;
+}
+
+h6,
+.util-h6 {
+	@include fontSizeREM(12);
+	line-height: 1.25;
+	letter-spacing: 0.3px;
+}
+
+p,
+.util-paragraph {
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+p,
+.util-paragraph,
+p a,
+.util-link {
+	@include font();
+	@include fontSizeREM(16);
+	line-height: 1.5;
+	letter-spacing: 0.6px;
+}
+
+p a {
+	color: color('ocker');
+}
+
+small,
+.util-small {
+	@include font();
+	@include fontSizeREM(12);
+	display: inline-block;
+	line-height: 1.5;
+	letter-spacing: 0.2px;
+}
+
+a {
+	@include font($ff-regular);
+	transition: all 150ms ease;
+	color: color('ci');
+
+	&:visited {
+		color: color('ci');
+	}
+}
+
+

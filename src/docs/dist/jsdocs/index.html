@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Capitan Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.capitan.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Capitan</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="tutorial-example.html">example</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu inline">
+					<li><a href="global.html#_">_</a></li><li><a href="global.html#basicScroll">basicScroll</a></li><li><a href="global.html#getCookie">getCookie</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#loadComponents">loadComponents</a></li><li><a href="global.html#loadDependencies">loadDependencies</a></li><li><a href="global.html#loadPolyfills">loadPolyfills</a></li><li><a href="global.html#setCookie">setCookie</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><p><img src="capitan.png" alt="Capitan Logo"></p>
+<h2>Instructions</h2><pre class="prettyprint source"><code>cd capitan
+npm i
+npm run init (follow the questions)
+npm start (for themes use npm start -- --theme &quot;name&quot;)
+npm run build for production (for themes use npm start -- --theme &quot;name&quot;)</code></pre><h1>Old ReadME</h1><h1>Introduction</h1><h2>What is capitan?</h2><p>Capitan is a Grunt-based, system independent and component based Frontend-Workflow.</p>
+<p>The main features are:</p>
+<ul>
+<li>System independent</li>
+<li>Components are self-contained</li>
+<li>Separation between private and public assets</li>
+<li>Mobile first</li>
+<li>loading assets on demand for better performance</li>
+<li>Automatically generated styleguide</li>
+</ul>
+<p>Frontend Stack:</p>
+<ul>
+<li>nodejs</li>
+<li>Grunt</li>
+<li>Vanilla JS</li>
+<li>handlebars.js (Template-Engine)</li>
+<li>basket.js (Store files in localstorage)</li>
+<li>importer.js (Load components on demand)</li>
+<li>AngularJS</li>
+<li>jQuery</li>
+<li>SASS</li>
+<li>BEM (CSS naming convention)</li>
+<li>PostCSS (grunt task for post processing CSS e.g. autoprefixer, pixrem, stylelint)</li>
+<li>BrowserSync (syncronised browser testing)</li>
+<li>ESLinter (Javascript linter)</li>
+<li>HTMLHint (validate HTML markup)</li>
+</ul>
+<h1>Getting started</h1><h2>Installation</h2><ol>
+<li>Checkout repository from https://github.com/brandung/capitan to your local folder</li>
+<li>Navigate to the folder 'capitan/' and run <code>npm install</code></li>
+</ol>
+<h2>Start a new project</h2><ol>
+<li>For first initialization of your project type: <strong><code>grunt project:init</code></strong></li>
+<li>Choose your destination system (standardized structure with &quot;dist&quot; folders is the default system)</li>
+<li>Path to your Public folders will be set automatically, based on the information set in the choosen system JSON file</li>
+<li>Browsersync opens up the components page (<a href="#styleguide">styleguide</a>)</li>
+<li>Start your work</li>
+</ol>
+<h2>Start working on an existing project</h2><ol>
+<li>To start Browsersync type: <strong><code>grunt project:serve</code></strong></li>
+<li>Browser Sync opens up the components page</li>
+<li>Start your work</li>
+</ol>
+<h1>Tasks</h1><p>These are the most common capitan tasks</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grunt project:init</td>
+<td>Initialize project</td>
+</tr>
+<tr>
+<td>grunt project:serve</td>
+<td>Task for your daily work (after initialisation)</td>
+</tr>
+<tr>
+<td>grunt project:finish</td>
+<td>Uglify and concatenate your private assets</td>
+</tr>
+<tr>
+<td>grunt project:lint</td>
+<td>Lint your html, sass and private js files</td>
+</tr>
+<tr>
+<td>grunt project:export</td>
+<td>Do the finish task and export your files for presentation</td>
+</tr>
+<tr>
+<td>grunt create:component --name=[COMPNAME]</td>
+<td>Create new component</td>
+</tr>
+<tr>
+<td>grunt create:zip</td>
+<td>Do the same as Project:export and ZIP your application</td>
+</tr>
+<tr>
+<td>grunt create:styleguide</td>
+<td>Reads the variables from the Sass Variables-Partial and transports them into the template partials that are part of the components page</td>
+</tr>
+<tr>
+<td>grunt update:grunt</td>
+<td>Donwloads the latest workflow files from github and copies them into the corresponding folders. Excluding the following folders:</p><ul><li>capitan/src</li><li>.gitignore</li><li>capitan/grunt/*.js</li><li>capitan/grunt/systems&quot;</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h1>Folder structure within 'capitan/src/'</h1><table>
+<thead>
+<tr>
+<th>Folder name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>component</td>
+<td>Your project components</td>
+</tr>
+<tr>
+<td>js</td>
+<td>Global javascript files</td>
+</tr>
+<tr>
+<td>sass</td>
+<td>Global sass files</td>
+</tr>
+<tr>
+<td>templates</td>
+<td>Global template files</td>
+</tr>
+</tbody>
+</table>
+<h2><em>component</em></h2><p>All your components will be placed here. Components are <strong>self-contained</strong>, meaning that the component folder contains everything the component needs to be displayed and worked correctly.</p>
+<p>When you run the create component task a folder with the name you specified will be created inside the components folder. The created folder will look like this:  </p>
+<pre class="prettyprint source"><code>[COMPNAME]
+├──[COMPNAME].hbs 
+├──[COMPNAME].scss</code></pre><p>Furthermore this task will append the component template to the components page and create an Importer entry in the global.js file (see <a href="#globaljs">Global JS</a>).</p>
+<p>A more complex component including JS and 3rd party files can look like this:</p>
+<pre class="prettyprint source"><code>[COMPNAME]
+├──[COMPNAME].hbs 
+├──[COMPNAME].scss
+├──[COMPNAME].js
+├──js
+├────libs
+├──────vendor
+├────────[LIBNAME]
+├──────────[LIBNAME].min.css
+├──────────[LIBNAME].min.js</code></pre><p>If you have a component JS file or additional vendor files, you have to add them to the Importer entry.
+The compiled component files will be placed in the directory that is specified in the global.js file. Vendor files will be copied to that directory (see <a href="#globaljs">Global JS</a>):</p>
+<ul>
+<li><code>[PUBLIC-PATH] + 'components/[COMPONENT-NAME]/component.js'</code></li>
+<li><code>[PUBLIC-PATH] + 'components/[COMPONENT-NAME]/component.css'</code></li>
+<li><code>[PUBLIC-PATH] + 'js/libs/vendor/[LIBNAME]/[LIBNAME].min.js'</code></li>
+<li><code>[PUBLIC-PATH] + 'js/libs/vendor/[LIBNAME]/[LIBNAME].min.css'</code></li>
+</ul>
+<p>Components are bringing several advantages:</p>
+<p><strong>dependency injection</strong></p>
+<ul>
+<li>only use component if needed</li>
+</ul>
+<p><strong>portability</strong></p>
+<ul>
+<li>can be copied over to another project</li>
+</ul>
+<p><strong>overview</strong></p>
+<ul>
+<li>all relevant files are in one place</li>
+<li>dependency on third party or global files</li>
+</ul>
+<h2><em>js</em></h2><p>The global.js file and the function, util, handle folders are located here. Functions, Utils and Handles are Scripts that are not bound to a specific component.</p>
+<p>They are stored in the Capitan.Function, Capitan.Util and Capitan.Handle objects and can be used globally. The getBreakpoint-Function for example, returns the current breakpoint based on the window with (Capitan.Function.getBreakpoint()).</p>
+<pre class="prettyprint source"><code>function
+├──...
+util
+├──...
+handle
+├──...
+global.js</code></pre><h2><em>sass</em></h2><p>The core Sass files folder. Beside others the Variables Sass-File is part of the partials folder. Capitan uses the normalize, html5 boilerplate and bootstrap grid system libraries which are placed inside the vendor folder. Styles that should be loaded on every page are defined inside the main.scss file.</p>
+<p>Most of the time you should include your components through the importer to keep the main.css file size low. But if you have a component that needs to be styled right from the start (like the main navigation), you can add it to the main.css file and remove it from the global.js. This way its styles will not be loaded asynchronously, but compiled into the main.css file.</p>
+<p>This makes sense if you have a component that is visible above the fold and you want its styles to be applied instantly.</p>
+<pre class="prettyprint source"><code>partials
+├──...
+vendor
+├──...
+main.scss</code></pre><h2><em>templates</em></h2><pre class="prettyprint source"><code>partials
+├──includes
+|  ├──...
+├──layouts
+|  ├──base.hbs
+views
+   ├──index.hbs
+   ├──styleguide.hbs</code></pre><h1><a name="styleguide">Styleguide</a></h1><p>Capitan generates a styleguide for you. Colors, breakpoints and icons that are defined in the Sass Variables-Partial (sass/partials/_variables.scss) will be generated into your styleguide.</p>
+<p>Also all of your components will be included into the styleguide.hbs automatically (if you use the task <code>grunt create:component --name=[COMPNAME]</code>).</p>
+<p>This process is part of the <code>grunt project:init</code> and <code>grunt project:serve</code> tasks. It reads the variables and transports them into the template partials that are part of the components page. While running the <code>grunt project:serve</code> task, your styleguide will automatically be updated if changes are made.</p>
+<p>If you just want to generate the styleguide you can use the <code>grunt create:styleguide</code> Task.</p>
+<h2>Widget</h2><p>The Styleguide-Widget is located at the right side of the components page and provides a better overview of your components. Its features are:</p>
+<ul>
+<li>Hide/ show components (all at once or one by one)</li>
+<li>Display a grid overlay</li>
+<li>List all your components inside a sidebar</li>
+</ul>
+<p>For further information and functionality visit: https://github.com/brandung/bra_styleguide-widget</p>
+<h1><a name="globaljs">Global JS</a></h1><h2>Importer</h2><p>The importer inserts your components into the page based on the conditions you set for your component. </p>
+<pre class="prettyprint source"><code>Capitan.Util.loadComponents = function () {
+    $.import([
+        {
+            condition: true,
+            order: 0,
+            fetch: [
+                [PUBLIC-FOLDER-PATH] + 'components/[COMPONENT-NAME]/component.js',
+                [PUBLIC-FOLDER-PATH] + 'components/[COMPONENT-NAME]/component.css'
+            ],
+            callback: [
+                {
+                    method: function () {
+                        console.log('All dependencies have been loaded');
+                    }
+                }
+            ],
+            unique: '&lt;@unique@>'
+        }
+    ]);
+}</code></pre><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Possible Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>condition</td>
+<td>Condition that defines if a component should be imported</td>
+<td><strong>true</strong>: always import component<br><strong>jQuery Object</strong>:<br>import component if specific element is present<br><strong>custom function:</strong><br>import component if function returns true</td>
+</tr>
+<tr>
+<td>order</td>
+<td>defines in which order the components should be loaded</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>fetch</td>
+<td>all the files that should be imported</td>
+<td>Array</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>fires when all component files have been successfully imported</td>
+<td></td>
+</tr>
+<tr>
+<td>unique</td>
+<td>timestamp for the component</td>
+<td>Number</td>
+</tr>
+</tbody>
+</table>
+<p>The import.js Github Repository: https://github.com/Webastronaut/import</p>
+<h2>Bundles</h2><p>The importer loads JS and CSS files on demand, so if you have components that depend on multiple files it is a good idea to combine those files into a bundle. This <strong>reduces the amount of requests</strong>.</p>
+<p>Bundles are generated through the <code>grunt project:finish</code> task.</p>
+<p>Example bundle:</p>
+<pre class="prettyprint source"><code>// &lt;@bundle#before-render
+Capitan.Vars.folderPath + 'js/util/console-polyfill.js',
+Capitan.Vars.folderPath + 'js/util/inject-smartresize.js',
+Capitan.Vars.folderPath + 'js/function/assert-breakpoint.js',
+Capitan.Vars.folderPath + 'js/function/get-breakpoint.js',
+Capitan.Vars.folderPath + 'js/function/get-orientation.js',
+Capitan.Vars.folderPath + 'js/function/get-computed-style.js',
+Capitan.Vars.folderPath + 'js/function/get-browser-version.js',
+Capitan.Vars.folderPath + 'js/function/get-viewport.js',
+Capitan.Vars.folderPath + 'js/util/set-breakpoints.js',
+Capitan.Vars.folderPath + 'js/handle/set-event-class.js',
+Capitan.Vars.folderPath + 'js/handle/resize-handler.js'
+// bundle@></code></pre><p>In this example the bundle file will be placed under</p>
+<pre class="prettyprint source"><code>[PUBLIC Folder]
+├──js
+├────bundle
+├──────before-render-bundle.js</code></pre><p>and the requests are reduced from two to one single request.</p>
+<p><strong>IMPORTANT:</strong> A bundle can not contain JS and CSS files at the same time. Those have to be put into separate bundles. </p>
+<h2>Recurring dependencies</h2><p>If you have components that share the same dependencies you can add an import to the <em>fetchBeforeRender</em> method.</p>
+<pre class="prettyprint source"><code>Capitan.Util.fetchBeforeRender = function () {
+    return $.import([
+        {
+            ...
+        },
+        {
+            condition: [$('.need-component-1'), $('.need-component-2'), $('.need-component-3')],
+            fetch: [
+                [PUBLIC-PATH] + 'components/[COMPONENT-NAME]/component.js',
+                [PUBLIC-PATH] + 'components/[COMPONENT-NAME]/component.css'
+            ],
+            unique: '&lt;@unique@>'
+        }
+    ], false);
+};</code></pre><h1>Functions, Utils and Handles</h1><p>Functions, Utils and Handles are the first scripts loaded by the Importer in the fetchBeforeRender-Function (before the DOM is ready). This makes sure that they are available within our components. These scripts will be loaded globally on every page.</p>
+<ul>
+<li><strong>Functions:</strong> Function-Scripts are small modules with only one task and a single return value</li>
+<li><strong>Utils:</strong> A Util can be used for the initialisation of polyfills or plugins that are needed globally </li>
+<li><strong>Handles:</strong> They handle global events like window resize or scroll events inside the document </li>
+</ul>
+<h1>Annotations</h1><p>The following annotation are used as a marker for additional actions within a task.</p>
+<p><strong>IMPORTANT:</strong> Never delete one of these annotations.</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>File type</th>
+<th>Connected task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;@delete/<br>delete@&gt;</td>
+<td>js<br>scss</td>
+<td>grunt project:finish</td>
+<td>deletes the code within these annotation   </td>
+</tr>
+<tr>
+<td>&lt;@unique@&gt;</td>
+<td>js</td>
+<td>grunt project:finish</td>
+<td>gets replaced by a timestamp for the importer     </td>
+</tr>
+<tr>
+<td>&lt;@bundle#[BUNDLE_NAME]/<br>bundle@&gt;</td>
+<td>js</td>
+<td>grunt project:finish</td>
+<td>combines JS or CSS files into a bundle file under the given name and includes it in the main.js file     </td>
+</tr>
+<tr>
+<td>&lt;@newComponent@&gt;</td>
+<td>tpl<br>js</td>
+<td>grunt create:component</td>
+<td>marker to insert new component into global.js and _modules.tpl</td>
+</tr>
+</tbody>
+</table>
+<h1>Systems</h1><p>For every system like Wordpress or Magento a custom JSON-file can be applied. All systems are located in the <strong>capitan/grunt/systems/</strong> folder. The default, TYPO3 and ZEND system are already part of the capitan workflow.</p>
+<h2>Add a new system</h2><p>If you want to add your own system file you can take one of the existing systems as a starting point.</p>
+<pre class="prettyprint source"><code>{
+    &quot;folder&quot;: [
+        &quot;../dist/components&quot;,
+        &quot;../dist/css&quot;,
+        &quot;../dist/fonts&quot;,
+        &quot;../dist/img/&quot;,
+        &quot;../dist/js/libs/bra&quot;,
+        &quot;../dist/js/libs/vendor&quot;
+    ],
+      &quot;root&quot;: &quot;..&quot;,
+    &quot;private&quot;: &quot;src&quot;,
+    &quot;public&quot;: &quot;dist&quot;,
+    &quot;liveURL&quot;: &quot;&quot;,
+    &quot;route&quot;: {
+      &quot;/dist&quot;: &quot;../dist&quot;
+    }
+}</code></pre><h3>System folders</h3><p>Inside the folder array you can specify the public folders that should be created when running the init task. It is important that the default folders always be there. Additional folder can be added individual.
+The folder path is <em>relative</em> to your 'capitan' folder!</p>
+<pre class="prettyprint source"><code>{
+    &quot;folder&quot;: []
+}</code></pre><h3>root path</h3><p>Set the root path. The root path is <em>relative</em> to your 'capitan' folder (without trailing slash)!</p>
+<pre class="prettyprint source"><code>{
+    &quot;root&quot;: &quot;..&quot;
+}</code></pre><h3>Private folder</h3><p>The folder where your private assets are placed. These should not be edited. </p>
+<pre class="prettyprint source"><code>{
+    &quot;private&quot;: &quot;src&quot;
+}</code></pre><h3>Public folder</h3><p>The folder where your compiled private files will be generated. </p>
+<pre class="prettyprint source"><code>{
+    &quot;public&quot;: &quot;&quot;
+}</code></pre><h3>Live URL</h3><p>Here you can set the project path for the live server.</p>
+<pre class="prettyprint source"><code>{
+    &quot;liveURL&quot;: &quot;&quot;
+}</code></pre><h3>Route</h3><p>If your live server paths differ from your local project paths, you can set routes to map those paths correctly (see an example in the typo3.json).</p>
+<pre class="prettyprint source"><code>{
+    &quot;route&quot;: {
+        &quot;[LOCALPATH]/Resources&quot;: &quot;Resources/&quot;
+    }
+}</code></pre></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	Copyright brandung GmbH & Co.KG
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on 16.08.2018
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
