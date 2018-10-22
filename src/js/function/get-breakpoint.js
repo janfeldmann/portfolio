@@ -12,15 +12,15 @@
  * @return {string} - One of the breakpoints: xs, sm, md, lg, xl
  */
 
-export default function getBreakpoint() {
-	'use strict';
+import {GLOBALS} from '../global';
 
+export default function getBreakpoint() {
 	let windowWidth = window.innerWidth,
-		breakpoints = Object.keys(Capitan.Vars.breakpoints),
+		breakpoints = Object.keys(GLOBALS.breakpoints),
 		breakpoint = '';
 
 	for (let i = breakpoints.length - 1; i >= 0; i -= 1) {
-		breakpoint = Capitan.Vars.breakpoints[breakpoints[i]];
+		breakpoint = GLOBALS.breakpoints[breakpoints[i]];
 
 		if (windowWidth >= breakpoint) {
 			return breakpoints[i];
@@ -28,4 +28,4 @@ export default function getBreakpoint() {
 			return breakpoints[i];
 		}
 	}
-};
+}

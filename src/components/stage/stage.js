@@ -9,7 +9,7 @@ const basicScroll = require('basicScroll');
 const _ = {
 	defaults: {
 		componentSelector: '.stage',
-		overlay: '.stage__overlay'
+		overlay: '.stage__overlay',
 	}
 };
 
@@ -21,21 +21,19 @@ const o = _.defaults;
  */
 export function init() {
 	document.querySelectorAll(o.overlay).forEach((elem) => {
-
 		const modifier = elem.getAttribute('data-modifier');
 
 		basicScroll.create({
-			elem: elem,
+			elem,
 			from: 0,
 			to: document.body.scrollHeight,
 			direct: true,
 			props: {
 				'--translateY': {
 					from: '0',
-					to: `${ 50 * modifier }px`
-				}
-			}
-		}).start()
-
-	})
+					to: `${50 * modifier}px`,
+				},
+			},
+		}).start();
+	});
 }

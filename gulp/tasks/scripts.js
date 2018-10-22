@@ -7,8 +7,6 @@
 const cached = require('gulp-cached');
 const serverTask = require('./server');
 const gulp = require('gulp');
-const jsdoc = require('gulp-jsdoc3');
-const jsdocConfig = require('../jsdoc');
 const plumber = require('gulp-plumber');
 const util = require('gulp-util');
 const production = Boolean(util.env.production);
@@ -24,9 +22,6 @@ webpackConfig.output.publicPath = Config.paths.liveUrl + 'js/';
 module.exports = function scripts () {
 	return gulp
 		.src(Config.paths.scripts.src)
-		.pipe(jsdoc(jsdocConfig, () => {
-			console.log('JSDOCS generated');
-		}))
 		.pipe(plumber())
 		.pipe(webpackStream(webpackConfig, webpack))
 		.on('error', function handleError() {

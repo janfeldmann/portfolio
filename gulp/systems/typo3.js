@@ -9,5 +9,5 @@ const liveUrl = './';
 exports.paths = {
 	publicDir: publicDir,
 	liveUrl: liveUrl,
-	publicRoute: publicRoute
+	publicRoute: publicRoute,
 };

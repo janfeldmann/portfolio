@@ -1,9 +1,20 @@
 import '@babel/polyfill';
 
-/*
- * Capitan - global.js
- * initialization of components, polyfills, utils, handlers and functions
- */
+export const GLOBALS = {
+	html: document.querySelector('html'),
+	body: document.querySelector('body'),
+	window,
+	doc: document,
+	currentBreakpoint: '"xs"',
+	currentOrientation: '"portrait"',
+	breakpoints: {
+		'xs': 320,
+		'sm': 480,
+		'md': 768,
+		'lg': 992,
+		'xl': 1200
+	}
+};
 
 /**
  * check for browser capabilities and load polyfills if needed
@@ -32,6 +43,13 @@ function loadPolyfills(callback) {
 function loadDependencies(callback) {
 }
 
+function loadServiceWorker() {
+	// Check that service workers are supported (e.g. only https)
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('/sw.js');
+	}
+}
+
 /**
  * initialize components
  */
@@ -53,10 +71,15 @@ function loadComponents() {
 			component.init();
 		});
 	}
+
+	if (document.querySelector('img.lazyload')) {
+		import(/* webpackChunkName: "lazyload" */ 'lazysizes');
+	}
 }
 
 (function () {
 	loadPolyfills(() => {
 		loadComponents();
+		loadServiceWorker();
 	});
 })();

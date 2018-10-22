@@ -8,15 +8,6 @@
 @import 'partials/mixins';
 
 /* ==========================================================================
-   Theme files
-   ========================================================================== */
-/**
- 	the includePath node sass option looks for these files inside the theme folder
- 	@see capitan/gulp/tasks/styles.js
-*/
-@import 'theme';
-
-/* ==========================================================================
    Vendor bootstrap
    ========================================================================== */
 @import "../../node_modules/bootstrap/scss/mixins/breakpoints";
@@ -42,3 +33,4 @@
 @import "../components/section/section";
 @import "../components/footer/footer";
 @import "../components/slider/slider";
+@import "../components/lazyload/lazyload";

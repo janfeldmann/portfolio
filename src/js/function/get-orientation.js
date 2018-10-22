@@ -12,8 +12,6 @@
  * @return {string} - portrait or landscape
  */
 export default function getOrientation() {
-	'use strict';
-
 	let windowWidth = window.innerWidth,
 		windowHeight = window.innerHeight,
 		orientation = '';
@@ -25,4 +23,4 @@ export default function getOrientation() {
 	}
 
 	return orientation;
-};
+}

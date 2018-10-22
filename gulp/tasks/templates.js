@@ -15,7 +15,7 @@ let Config = require('../config');
 
 function extractSassToHelpers() {
 	const rendered = sassExtract.renderSync({
-		file: Config.paths.privateDir + 'sass/partials/_variables.scss'
+		file: Config.paths.privateDir + 'sass/partials/_variables.scss',
 	});
 
 	let themeRendered = null;

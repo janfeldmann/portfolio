@@ -20,9 +20,9 @@ const zipTask = require('./gulp/tasks/zip');
 const exportTask = require('./gulp/tasks/export');
 const serverTask = require('./gulp/tasks/server');
 const copyTask = require('./gulp/tasks/copy');
-const styleGuideTask = require('./gulp/tasks/styleguide');
 const criticalCSSTask = require('./gulp/tasks/critical');
 const replaceTask = require('./gulp/tasks/replace');
+const imageMinTask = require('./gulp/tasks/imagemin');
 
 /////////////////////////////////////////////////
 // Tasks
@@ -41,7 +41,6 @@ gulp.task(
 		gulp.parallel(
 			scriptsTask,
 			styleTask,
-			styleGuideTask,
 			templateTask,
 			copyTask.img,
 			copyTask.fonts,
@@ -67,14 +66,15 @@ gulp.task(
 			styleTask,
 			templateTask,
 			copyTask.img,
-			copyTask.fonts
+			copyTask.fonts,
 		),
+		imageMinTask.minifyImages,
 		replaceTask.publicDirTemplates,
 		function (done) {
 			// force build task to terminate
 			done();
 			process.exit(0);
-		}
+		},
 	),
 );
 
@@ -125,17 +125,6 @@ gulp.task(
 		}
 	)
 );
-
-/**
- * creates styleguide
- */
-gulp.task(
-	'styleguide',
-	gulp.series(
-		styleGuideTask
-	)
-);
-
 
 /**
  * analyzes critical css

@@ -16,14 +16,12 @@
  * @return {boolean} breakpoint condition
  */
 
-export default function assertBreakpoint(operator, breakpoint) {
-	'use strict';
+import {GLOBALS} from '../global';
 
-	const breakpoints = Object.keys(Capitan.Vars.breakpoints),
-		curBreakpointIndex = breakpoints.indexOf(
-			Capitan.Vars.currentBreakpoint
-		),
-		conditionalBreakpointIndex = breakpoints.indexOf(breakpoint);
+export default function assertBreakpoint(operator, breakpoint) {
+	const breakpoints = Object.keys(GLOBALS.breakpoints);
+	const curBreakpointIndex = breakpoints.indexOf(GLOBALS.currentBreakpoint);
+	const conditionalBreakpointIndex = breakpoints.indexOf(breakpoint);
 
 	switch (operator) {
 		case 'eq':

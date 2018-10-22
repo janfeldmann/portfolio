@@ -11,14 +11,14 @@
  * e.g. when the breakpoint has changed (see handle/resize-handler.js for more information)
  */
 
-export default function setEventClass() {
-	'use strict';
+import { GLOBALS } from '../global';
 
+export default function setEventClass() {
 	const _ = {};
 
 	_.handler = function(event, className) {
-		Capitan.Vars.$html.addClass(className);
+		GLOBALS.html.classList.add(className);
 	};
 
-	Capitan.Vars.$doc.on('on-set-class', _.handler);
+	GLOBALS.doc.addEventListener('on-set-class', _.handler);
 };

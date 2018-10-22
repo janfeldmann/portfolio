@@ -18,18 +18,7 @@ $component: 'stage';
 
 // block
 %#{$component} {
-	color: color('white');
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	background: color('black');
-	overflow: hidden;
-	max-height: 50vh;
-
-	@include respondMin(point('min-sm')) {
-		max-height: 100vh;
-	}
+	padding: 20px;
 
 	picture {
 		display: block;
@@ -41,16 +30,35 @@ $component: 'stage';
 }
 
 // element
+.#{$component}__wrapper {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+	max-width: $container-max-widths + px;
+	margin: 0 auto;
+
+	@include respondMin(point('min-md')) {
+	    flex-direction: row;
+		height: calc(100vh - 40px);
+	}
+}
+
 .#{$component}__content {
 	transform: translateZ(0);
-	text-shadow: 4px 4px 6px rgba(color('black'), 0.3);
-	text-align: center;
-	position: absolute;
-	top: 80px;
+	padding: $grid-gutter-width $grid-gutter-width*2;
+	align-self: center;
+	order: -1;
 
-	@include respondMin(point('min-sm')) {
-		top: 170px;
-		text-shadow: 4px 4px 10px rgba(color('black'), 0.2);
+	@include respondMin(point('min-md')) {
+		flex-basis: 50%;
+		max-width: 50%;
+		order: 0;
+	}
+
+	@include respondMin(point('min-lg')) {
+		flex-basis: 60%;
+		max-width: 60%;
 	}
 
 	h1,
@@ -63,27 +71,49 @@ $component: 'stage';
 	}
 
 	h1 {
+		@include font($ff-heading);
 		margin-bottom: 5px;
 		text-transform: uppercase;
-		letter-spacing: 2px;
+		letter-spacing: 1px;
+		word-spacing: 2px;
 	}
 
 	h2 {
-		@include font($ff-heading, $typo-weight-light);
-		@include fontSizeREM(16);
-		letter-spacing: 6px;
+		@include font($ff-heading, $typo-weight-normal);
+		@include fontSizeREM(14);
+		color: color('ci');
 		animation-delay: 1000ms;
+		text-transform: none;
+		margin: 0;
 	}
 }
 
 .#{$component}__media {
 	position: relative;
-}
 
-.#{$component}__media__main {
+	@include respondMin(point('min-md')) {
+		flex-basis: 50%;
+		max-width: 50%;
+	}
+
+	@include respondMin(point('min-lg')) {
+		flex-basis: 40%;
+		max-width: 40%;
+	}
+
+	picture {
+		overflow: hidden;
+	}
+
+	img,
+	picture {
+		width: 100%;
+		height: 100%;
+	}
+
 	img {
 		max-width: 100%;
-		transform: scale3d(1.05, 1.05, 1);
+		object-fit: cover;
 		opacity: 0;
 		animation-name: zoom-out;
 		animation-duration: 1000ms;
@@ -92,9 +122,6 @@ $component: 'stage';
 }
 
 .#{$component}__overlay {
-	position: absolute;
-	bottom: 0;
-	right: 0;
 	z-index: 1;
 	transform: translateY(var(--translateY));
 	will-change: transform;

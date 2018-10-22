@@ -54,5 +54,5 @@ export default function () {
 			setCookie(data.name, data.value);
 		}
 	});
-};
+}
 

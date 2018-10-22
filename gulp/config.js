@@ -57,17 +57,8 @@ let Config = {
 		routes: {
 			[publicRoute]: publicDir,
 			[liveUrl]: publicDir,
-			'jsdocs/': privateDir + 'docs/dist/jsdocs/',
-			'views/': privateDir + 'docs/dist/templates/'
 		},
 		publicRoute: publicRoute
-	},
-	breakpoints: {
-		'xs': 320,
-		'sm': 480,
-		'md': 768,
-		'lg': 992,
-		'xl': 1200
 	}
 };
 

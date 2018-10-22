@@ -1,26 +1,25 @@
-const webpack = require('webpack');
 const util = require('gulp-util');
-const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
-const smp = new SpeedMeasurePlugin();
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
+const Config = require('../gulp/config');
+
 const production = Boolean(util.env.production);
-let Config = require('../gulp/config');
-// set folderPath depending on production or develop mode and check if live url is set
-const folderPath = (production && Config.paths.liveUrl !== '') ? Config.paths.liveUrl : Config.paths.publicRoute;
+const smp = new SpeedMeasurePlugin();
 
 module.exports = smp.wrap({
 	entry: {
 		main: [
-			Config.paths.privateDir + 'js/global.js'
-		]
+			Config.paths.privateDir + 'js/global.js',
+		],
 	},
 	output: {
 		filename: '[name].js',
-		chunkFilename: '[name].bundle.js'
+		chunkFilename: '[name][hash].bundle.js',
 	},
 	externals: [
 		{
-			"window": "window" // needed for scripts that require the window object - tell webpack that the window object will be present inside the users environment - https://webpack.js.org/configuration/externals/
-		}
+			window: 'window', // needed for scripts that require the window object - tell webpack that the window object will be present inside the users environment - https://webpack.js.org/configuration/externals/
+		},
 	],
 	module: {
 		// noParse: /(js\/libs\/vendor).+?(.js)$/, // tells webpack to not parse these files - regex for vendor files
@@ -30,8 +29,8 @@ module.exports = smp.wrap({
 				exclude: /(node_modules|bower_components)|((js\/libs\/vendor).+?(.js)$)/,
 				use: {
 					// options are defined inside .babelrc
-					loader: 'babel-loader?cacheDirectory'
-				}
+					loader: 'babel-loader?cacheDirectory',
+				},
 			},
 			{
 				test: /\.css$/,
@@ -40,20 +39,20 @@ module.exports = smp.wrap({
 						loader: 'style-loader',
 						options: {
 							minimize: production,
-							sourceMap: false
-						}
+							sourceMap: false,
+						},
 					},
 					{
 						loader: 'css-loader',
 						options: {
 							minimize: production,
-							sourceMap: false
-						}
+							sourceMap: false,
+						},
 					},
 					{
-						loader: "sass-loader" // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
-					}
-				]
+						loader: 'sass-loader', // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
+					},
+				],
 			},
 			{
 				test: /\.scss/,
@@ -62,46 +61,71 @@ module.exports = smp.wrap({
 						loader: 'style-loader',
 						options: {
 							minimize: production,
-							sourceMap: false
-						}
+							sourceMap: false,
+						},
 					},
 					{
 						loader: 'css-loader',
 						options: {
 							minimize: production,
-							sourceMap: false
-						}
+							sourceMap: false,
+						},
 					},
 					{
-						loader: "sass-loader" // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
-					}
-				]
+						loader: 'sass-loader', // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
+					},
+				],
 			},
 			{
 				test: /\.(png|jpg|gif|svg)$/,
-				loader: 'url-loader'
-			}
-		]
+				loader: 'url-loader',
+			},
+		],
 	},
 	plugins: [
-		// https://webpack.js.org/plugins/define-plugin/ - define global constants
-		new webpack.DefinePlugin({
-			CAPITAN: {
-				Vars: {
-					folderPath: "'" + folderPath + "'",
-					currentBreakpoint: '"xs"',
-					currentOrientation: '"portrait"',
-					breakpoints: Config.breakpoints
+		// https://developers.google.com/web/tools/workbox/guides/generate-service-worker/webpack
+		// https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
+		new WorkboxPlugin.GenerateSW({
+			swDest: Config.paths.publicDir + 'sw.js',
+			// Exclude images from the precache
+			exclude: [/\.(?:png|jpg|jpeg|svg)$/, /main.js/],
+
+			// Define runtime caching rules.
+			runtimeCaching: [{
+				urlPattern: '/',
+				// Apply a cache-first strategy.
+				handler: 'networkFirst',
+				options: {
+					// Use a custom cache name.
+					cacheName: 'html',
 				},
-				// CSS components script namespace
-				Component: {},
-				// functions must return something
-				Function: {},
-				// everything that has to do with event handling
-				Handle: {},
-				// Should be used for scripts that have nothing to do with components, e.g. placeholder polyfills, plugins, etc.
-				Util: {}
-			}
-		})
-	]
+			},
+			{
+				urlPattern: /main.js/,
+				// Apply a cache-first strategy.
+				handler: 'networkFirst',
+				options: {
+					// Use a custom cache name.
+					cacheName: 'javascript',
+				},
+			},
+			{
+				// Match any request ends with .png, .jpg, .jpeg or .svg.
+				urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+
+				// Apply a cache-first strategy.
+				handler: 'cacheFirst',
+
+				options: {
+					// Use a custom cache name.
+					cacheName: 'images',
+
+					// Only cache 10 images.
+					expiration: {
+						maxEntries: 10,
+					},
+				},
+			}],
+		}),
+	],
 });

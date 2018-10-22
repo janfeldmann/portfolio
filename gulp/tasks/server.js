@@ -5,6 +5,7 @@
 
 const browserSync = require('browser-sync').create();
 const Config = require('../config');
+
 const serverSettings = {
 	server: {
 		baseDir: Config.paths.publicDir,
@@ -12,7 +13,7 @@ const serverSettings = {
 	},
 	notify: false,
 	startPath: 'index.html',
-	open: 'external'
+	open: 'external',
 };
 
 module.exports = {
@@ -25,5 +26,5 @@ module.exports = {
 	reload: function reload(done) {
 		browserSync.reload();
 		done();
-	}
+	},
 };

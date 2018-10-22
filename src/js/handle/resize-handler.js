@@ -13,40 +13,39 @@
  */
 import getBreakpoint from '../function/get-breakpoint';
 import getOrientation from '../function/get-orientation';
+import { GLOBALS } from '../global';
 
 export default function resizeHandler() {
 	const _ = {};
 
 	_.handler = function handler() {
-		Capitan.Vars.currentBreakpoint = getBreakpoint();
-		Capitan.Vars.currentOrientation = getOrientation();
+		GLOBALS.currentBreakpoint = getBreakpoint();
+		GLOBALS.currentOrientation = getOrientation();
 
-		let breakpoint = `on-breakpoint-${Capitan.Vars.currentBreakpoint}`;
-		let orientation = `on-orientation-${Capitan.Vars.currentOrientation}`;
+		let breakpoint = `on-breakpoint-${GLOBALS.currentBreakpoint}`;
+		let orientation = `on-orientation-${GLOBALS.currentOrientation}`;
 
-		if (!Capitan.Vars.$html.hasClass(breakpoint)) {
-			Capitan.Vars.$html[0].className = Capitan.Vars.$html[0].className.replace(
+		if (!GLOBALS.html.classList.contains(breakpoint)) {
+			GLOBALS.html.className = GLOBALS.html.className.replace(
 				/\s?on-breakpoint-(xs|sm|md|lg|xl)/g,
 				'',
 			);
 
-			Capitan.Vars.$doc.trigger('on-set-class', [breakpoint]);
-			Capitan.Vars.$doc.trigger('on-changed-breakpoint', [
-				Capitan.Vars.currentBreakpoint,
+			GLOBALS.doc.dispatchEvent('on-set-class', [breakpoint]);
+			GLOBALS.doc.dispatchEvent('on-changed-breakpoint', [
+				GLOBALS.currentBreakpoint,
 			]);
 		}
 
-		if (!Capitan.Vars.$html.hasClass(orientation)) {
-			Capitan.Vars.$html[0].className = Capitan.Vars.$html[0].className.replace(
+		if (!GLOBALS.html.classList.contains(orientation)) {
+			GLOBALS.html.className = GLOBALS.html.className.replace(
 				/\s?on-orientation-(landscape|portrait)/g,
 				'',
 			);
 
-			Capitan.Vars.$doc.trigger('on-set-class', [orientation]);
+			GLOBALS.doc.dispatchEvent('on-set-class', [orientation]);
 		}
 	};
 
-	// TODO: evaluate if smartresize is triggered on orientationchange
-	Capitan.Vars.$window.smartresize(_.handler);
 	_.handler();
 };
