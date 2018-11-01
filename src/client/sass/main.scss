@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/* ==========================================================================
+   Core functions, variables and mixins
+   ========================================================================== */
+@import 'partials/functions';
+@import 'partials/variables';
+@import 'partials/mixins'; 
+
+/* ==========================================================================
+   Vendor bootstrap
+   ========================================================================== */
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/mixins/grid-framework";
+@import "~bootstrap/scss/mixins/grid";
+@import "~bootstrap/scss/grid"; 
+@import "~bootstrap/scss/utilities/spacing";  
+
+/* ==========================================================================
+   Default layout partials
+   ========================================================================== */
+@import 'partials/layout';
+@import 'partials/typo';
+@import 'partials/utils';
+
+
+/* ==========================================================================
+   Default Components
+   ========================================================================== */
+@import "../components/button/button"; 
+@import "../components/header/header";
+@import "../components/nav-main/nav-main";
+@import "../components/stage/stage";
+@import "../components/section/section"; 
+@import "../components/footer/footer";
+@import "../components/slider/slider";
+@import "../components/lazyload/lazyload";

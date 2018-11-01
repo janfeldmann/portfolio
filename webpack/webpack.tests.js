@@ -1,4 +1,4 @@
-let Config = require('../gulp/config');
+const Config = require('../config/config');
 const hostname = 'localhost';
 const port = 3002;
 

@@ -1,26 +1,30 @@
-const util = require('gulp-util');
-const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
+const path = require('path');
 const WorkboxPlugin = require('workbox-webpack-plugin');
-const Config = require('../gulp/config');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const Config = require('../config/config');
 
-const production = Boolean(util.env.production);
-const smp = new SpeedMeasurePlugin();
+console.log(process.env.NODE_ENV);
 
-module.exports = smp.wrap({
+const production = false;
+
+module.exports = {
+	context: path.join(__dirname, '../'),
 	entry: {
 		main: [
 			Config.paths.privateDir + 'js/global.js',
+			Config.paths.privateDir + 'sass/main.scss',
 		],
 	},
 	output: {
+		path: Config.paths.publicDir,
 		filename: '[name].js',
 		chunkFilename: '[name][hash].bundle.js',
 	},
-	externals: [
-		{
-			window: 'window', // needed for scripts that require the window object - tell webpack that the window object will be present inside the users environment - https://webpack.js.org/configuration/externals/
-		},
-	],
 	module: {
 		// noParse: /(js\/libs\/vendor).+?(.js)$/, // tells webpack to not parse these files - regex for vendor files
 		rules: [
@@ -33,21 +37,50 @@ module.exports = smp.wrap({
 				},
 			},
 			{
-				test: /\.css$/,
+				test: /\.(png|svg|jpg|gif|webp|webm|woff|woff2|eot|ttf)$/,
+				use: [
+					'file-loader'
+				]
+			},
+			{
+				test: /main.scss$/,
+				use: ExtractTextPlugin.extract({
+					use: [
+						{
+							loader: "css-loader", // translates CSS into CommonJS
+							options: {
+								minimize: true,
+								sourceMap: false
+							}
+						}, {
+							loader: "sass-loader", // compiles Sass to CSS
+							options: {
+								sourceMap: false
+							}
+						}
+					],
+					fallback: "style-loader"
+				})
+			},
+			{
+				test: /(components)\.(css|scss)$/,
 				use: [
 					{
 						loader: 'style-loader',
 						options: {
-							minimize: production,
+							minimize: process.env.NODE_ENV === 'production',
 							sourceMap: false,
 						},
 					},
 					{
 						loader: 'css-loader',
 						options: {
-							minimize: production,
+							minimize: process.env.NODE_ENV === 'production',
 							sourceMap: false,
 						},
+					},
+					{
+						loader: 'resolve-url-loader',
 					},
 					{
 						loader: 'sass-loader', // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
@@ -55,34 +88,39 @@ module.exports = smp.wrap({
 				],
 			},
 			{
-				test: /\.scss/,
+				test: /\.hbs$/,
 				use: [
 					{
-						loader: 'style-loader',
+						loader: 'handlebars-loader',
 						options: {
-							minimize: production,
-							sourceMap: false,
+							partialDirs: [Config.paths.privateDir, Config.paths.templates.src],
+							inlineRequires: '\/assets\/' // inline all files that have "assets" inside their path 
 						},
-					},
-					{
-						loader: 'css-loader',
-						options: {
-							minimize: production,
-							sourceMap: false,
-						},
-					},
-					{
-						loader: 'sass-loader', // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
-					},
+					}
 				],
-			},
-			{
-				test: /\.(png|jpg|gif|svg)$/,
-				loader: 'url-loader',
 			},
 		],
 	},
 	plugins: [
+		new ExtractTextPlugin({
+			filename: "[name].[hash].css",
+			allChunks: true
+		}),
+		new CleanWebpackPlugin([Config.paths.publicDir],{
+			root: process.cwd()
+		}),
+		new HtmlWebpackPlugin({
+			template: Config.paths.templates.src + 'index.hbs',
+			alwaysWriteToDisk: true,
+			inlineSource: '.(css)$'
+		}),
+		new HtmlWebpackHarddiskPlugin(),
+		new HtmlWebpackInlineSourcePlugin(),
+		new FaviconsWebpackPlugin({
+			title: 'Jan Feldmann / Frontend Developer',
+			logo: Config.paths.privateDir + 'assets/img/logo.svg',
+			prefix: 'app-icons-[hash]/',
+		}),
 		// https://developers.google.com/web/tools/workbox/guides/generate-service-worker/webpack
 		// https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 		new WorkboxPlugin.GenerateSW({
@@ -91,7 +129,9 @@ module.exports = smp.wrap({
 			exclude: [/\.(?:png|jpg|jpeg|svg)$/, /main.js/],
 
 			// Define runtime caching rules.
-			runtimeCaching: [{
+			
+			runtimeCaching: [
+			/*{
 				urlPattern: '/',
 				// Apply a cache-first strategy.
 				handler: 'networkFirst',
@@ -99,7 +139,7 @@ module.exports = smp.wrap({
 					// Use a custom cache name.
 					cacheName: 'html',
 				},
-			},
+			},*/
 			{
 				urlPattern: /main.js/,
 				// Apply a cache-first strategy.
@@ -128,4 +168,4 @@ module.exports = smp.wrap({
 			}],
 		}),
 	],
-});
+};
