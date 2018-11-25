@@ -5,33 +5,35 @@
    ========================================================================== */
 @import 'partials/functions';
 @import 'partials/variables';
-@import 'partials/mixins'; 
+@import 'partials/mixins';
 
 /* ==========================================================================
    Vendor bootstrap
    ========================================================================== */
-@import "~bootstrap/scss/mixins/breakpoints";
-@import "~bootstrap/scss/mixins/grid-framework";
-@import "~bootstrap/scss/mixins/grid";
-@import "~bootstrap/scss/grid"; 
-@import "~bootstrap/scss/utilities/spacing";  
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~bootstrap/scss/mixins/grid-framework';
+@import '~bootstrap/scss/mixins/grid';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/utilities/spacing';
 
 /* ==========================================================================
    Default layout partials
    ========================================================================== */
 @import 'partials/layout';
 @import 'partials/typo';
+@import 'partials/icons';
 @import 'partials/utils';
-
 
 /* ==========================================================================
    Default Components
    ========================================================================== */
-@import "../components/button/button"; 
-@import "../components/header/header";
-@import "../components/nav-main/nav-main";
-@import "../components/stage/stage";
-@import "../components/section/section"; 
-@import "../components/footer/footer";
-@import "../components/slider/slider";
-@import "../components/lazyload/lazyload";
+@import '../components/button/button';
+@import '../components/header/header';
+@import '../components/nav-main/nav-main';
+@import '../components/stage/stage';
+@import '../components/section/section';
+@import '../components/footer/footer';
+@import '../components/slider/slider';
+@import '../components/lazyload/lazyload';
+@import '../components/list/list';
+@import '../components/preact-list/preact-list';

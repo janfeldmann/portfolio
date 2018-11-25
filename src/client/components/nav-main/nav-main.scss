@@ -10,7 +10,6 @@
  * MIT License (MIT)
  */
 
-
 /* ==========================================================================
    Main Navigation
    ========================================================================== */
@@ -24,31 +23,58 @@ $nav-burger-stroke: 2;
 
 	display: flex;
 	align-items: center;
-	padding: 0 5px 0 20px;
+	padding: 0;
 	transition: background-color 200ms ease;
+	border-radius: 20px;
+	position: relative;
+	max-width: ($container-max-widths / $body-font-size-px) + em;
+
+	&:before {
+		transition: transform 400ms ease;
+		content: '';
+		position: absolute;
+		right: 0;
+		top: 0;
+		border-radius: 50%;
+		background: color('white');
+		width: 45px;
+		height: 45px;
+		display: block;
+		transform: translate3d(0, 0, 0) scale3d(0, 0, 0);
+	}
 
 	ul {
 		transition: opacity 200ms ease, visibility 200ms ease;
 		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
 		list-style: none;
 		margin: 0 (-(spacer('half')));
 		opacity: 0;
 		visibility: hidden;
 		padding: 0;
+		position: absolute;
+		top: 50px;
+		right: 20px;
 	}
 
 	li {
-		padding: 0 spacer('half');
+		padding: 0;
+		margin: $grid-gutter-width/2 0;
 	}
 
 	a {
-		@include fontSizeREM(14);
+		@include fontSizeREM(24);
 		@include font();
 		text-decoration: none;
 		color: var(--nav-main-color);
 	}
 
 	&.is-active {
+		&:before {
+			transform: translate3d(50px, 80px, 0) scale3d(10, 10, 1);
+		}
+
 		ul {
 			visibility: visible;
 			opacity: 1;
@@ -58,7 +84,7 @@ $nav-burger-stroke: 2;
 	&.is-scrolled {
 		--nav-main-color: #333;
 
-		&.is-active {
+		&:before {
 			background: color('white');
 		}
 	}
@@ -66,35 +92,25 @@ $nav-burger-stroke: 2;
 
 // element
 .#{$component}__toggle {
-	transform: translate3d(0,0,1px);
-	transition: transform 400ms ease 600ms, background-color 200ms ease;
-	width: 50px;
-	height: 50px;
+	transform: translate3d(0, 0, 1px);
+	transition: transform 400ms ease 600ms, background-color 400ms ease;
+	width: 45px;
+	height: 45px;
 	padding: 0;
-	background: transparent;
 	border: none;
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
-	margin-left: 10px;
+	margin: 0;
+	background: transparent;
+	position: relative;
 
 	&:focus {
-		outline:none;
-	}
-
-	&:after {
-		@include fontSizeREM(12);
-		content: attr(data-title);
-		position: relative;
-		bottom: -15px;
-		left: 0;
-		right: 0;
-		text-align: center;
-		color: var(--nav-main-color);
+		outline: none;
 	}
 
 	span {
-		transition: transform 200ms cubic-bezier(.645,.045,.355,1);
+		transition: transform 200ms cubic-bezier(0.645, 0.045, 0.355, 1);
 		position: relative;
 		display: block;
 		font-size: 0;
@@ -117,15 +133,15 @@ $nav-burger-stroke: 2;
 		position: absolute;
 		display: block;
 		content: '';
-		transition-duration: .2s;
+		transition-duration: 0.2s;
 	}
 
 	span:before {
-		top: (-$nav-burger-stroke*4 + px);
+		top: (-$nav-burger-stroke * 4 + px);
 	}
 
 	span:after {
-		bottom: (-$nav-burger-stroke*4 + px);
+		bottom: (-$nav-burger-stroke * 4 + px);
 	}
 
 	.is-active & {
@@ -135,17 +151,16 @@ $nav-burger-stroke: 2;
 		}
 
 		span:before {
-			transform: translate3d(0, $nav-burger-stroke*4 + px,0) rotate(45deg);
+			transform: translate3d(0, $nav-burger-stroke * 4 + px, 0) rotate(45deg);
 		}
 
 		span:after {
-			transform: translate3d(0,(-$nav-burger-stroke*4 + px),0) rotate(-45deg);
+			transform: translate3d(0, (-$nav-burger-stroke * 4 + px), 0) rotate(-45deg);
 		}
 	}
 }
 
 // modifier
-
 
 // component class selector
 .#{$component} {

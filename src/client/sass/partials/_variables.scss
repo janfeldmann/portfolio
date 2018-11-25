@@ -18,7 +18,7 @@
 $base-em: 16 !default;
 
 /* Body font size */
-$body-font-size-px: 16 !default; 
+$body-font-size-px: 16 !default;
 $body-font-size: percentage(($body-font-size-px / $base-em) * 100 / 100) !default; // in percent
 
 /* Font Style */
@@ -72,24 +72,24 @@ $spacers: (
 
 // map for bootstrap mixins
 $grid-breakpoints: (
-		'xs': $featurephone + px,
-		'sm': $smartphone + px,
-		'md': $tablet + px,
-		'lg': $desktop + px,
-		'xl': $retina + px
+	'xs': $featurephone + px,
+	'sm': $smartphone + px,
+	'md': $tablet + px,
+	'lg': $desktop + px,
+	'xl': $retina + px
 ) !default;
 
 // map for respondMin/respondMax mixin
 $breakpoints: (
-		'min-xs': pxToEm($featurephone),
-		'min-sm': pxToEm($smartphone),
-		'min-md': pxToEm($tablet),
-		'min-lg': pxToEm($desktop),
-		'min-xl': pxToEm($retina),
-		'max-xs': pxToEm($smartphone - 1),
-		'max-sm': pxToEm($tablet - 1),
-		'max-md': pxToEm($desktop - 1),
-		'max-lg': pxToEm($retina - 1)
+	'min-xs': pxToEm($featurephone),
+	'min-sm': pxToEm($smartphone),
+	'min-md': pxToEm($tablet),
+	'min-lg': pxToEm($desktop),
+	'min-xl': pxToEm($retina),
+	'max-xs': pxToEm($smartphone - 1),
+	'max-sm': pxToEm($tablet - 1),
+	'max-md': pxToEm($desktop - 1),
+	'max-lg': pxToEm($retina - 1)
 ) !default;
 
 /* ==========================================================================
@@ -98,20 +98,20 @@ $breakpoints: (
 
 /* <@colors */
 $colors: (
-		'black': #000,
-		'white': #fff,
-		'grey': #666,
-		'grey-dark': #333,
-		'grey-light': #ccc,
-		'grey-lightest': #fafafa,
-		'placeholder': #999,
-		'ci': #228c9a,
-		'ci-alt': #ef5350,
-		'ci-hover': #2bafc1,
-		'error': #9e4040,
-		'success': #10B044,
-		'warning': #f0ad4e,
-		'info': #2989D8
+	'black': #000,
+	'white': #fff,
+	'grey': #666,
+	'grey-dark': #333,
+	'grey-light': #ccc,
+	'grey-lightest': #fafafa,
+	'placeholder': #999,
+	'ci': #228c9a,
+	'ci-alt': #ef5350,
+	'ci-hover': #2bafc1,
+	'error': #9e4040,
+	'success': #10b044,
+	'warning': #f0ad4e,
+	'info': #2989d8
 ) !default;
 
 /* colors@> */
@@ -122,7 +122,7 @@ $colors: (
 
 /* <@icons */
 $icons: (
-		close: '\e900'
+	close: '\e900'
 ) !default;
 
 /* icons@> */

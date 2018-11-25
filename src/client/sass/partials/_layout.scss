@@ -31,6 +31,9 @@ body {
 	line-height: 1.4;
 	margin: 0;
 	position: relative;
+	//background-image: linear-gradient(to right, #74ebd5 0%, #9face6 100%);
+	//background-image: linear-gradient(to bottom, #74ebd5 0%, #12fff7 100%);
+	background-image: linear-gradient(-100deg, #4facfe 0%, #74ebd5 100%);
 }
 
 main {
@@ -46,6 +49,11 @@ main {
 	& > * {
 		width: 100%;
 	}
+}
+
+[data-parallax-speed] {
+	transform: translateY(var(--translateY));
+	will-change: transform;
 }
 
 /* ==========================================================================
@@ -70,7 +78,7 @@ main {
 	}
 
 	// fix for incorrect use of row without columns
-	& > *:not([class*="col-"]) {
+	& > *:not([class*='col-']) {
 		width: 100%;
 		flex-basis: 100%;
 	}
@@ -78,10 +86,10 @@ main {
 
 .row--divided {
 	@include respondMin(point('min-md')) {
-	    margin: 0 (-40px);
+		margin: 0 (-40px);
 	}
 
-	& > [class*="col-"] {
+	& > [class*='col-'] {
 		&:first-child {
 			@include respondMin(point('min-md')) {
 				border-right: 1px solid color('grey-light');
@@ -90,19 +98,19 @@ main {
 
 		.btn-group {
 			@include respondMin(point('min-md')) {
-			    margin-top: auto;
+				margin-top: auto;
 			}
 		}
 
 		@include respondMin(point('min-md')) {
-		    padding: 0 40px;
+			padding: 0 40px;
 			display: flex;
 			flex-direction: column;
 		}
 	}
 }
 
-[class*="col-"] {
+[class*='col-'] {
 	// smaller offset on mobile
 	@include respondMax(point('max-xs')) {
 		padding: 0 spacer('half');

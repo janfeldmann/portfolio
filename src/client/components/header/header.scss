@@ -20,12 +20,10 @@ $component: 'header';
 %#{$component} {
 	z-index: 10;
 	position: fixed;
-	left: 0;
-	right: 0;
-	top: 0;
+	right: $grid-gutter-width;
+	top: $grid-gutter-width;
 	padding: 10px 0;
 }
-
 
 // element
 .#{$component}__content {
@@ -35,7 +33,6 @@ $component: 'header';
 }
 
 // modifier
-
 
 // component class selector
 .#{$component} {

@@ -8,11 +8,11 @@ export const GLOBALS = {
 	currentBreakpoint: '"xs"',
 	currentOrientation: '"portrait"',
 	breakpoints: {
-		'xs': 320,
-		'sm': 480,
-		'md': 768,
-		'lg': 992,
-		'xl': 1200
+		xs: 320,
+		sm: 480,
+		md: 768,
+		lg: 992,
+		xl: 1200
 	}
 };
 
@@ -21,9 +21,7 @@ export const GLOBALS = {
  * @param callback - run callback after successful import
  */
 function loadPolyfills(callback) {
-	const modernBrowser = (
-		'fetch' in window
-	);
+	const modernBrowser = 'fetch' in window;
 
 	// check if polyfills are needed
 	if (!modernBrowser) {
@@ -40,8 +38,7 @@ function loadPolyfills(callback) {
  * load all needed dependencies for the components
  * @param callback - run callback after successful import
  */
-function loadDependencies(callback) {
-}
+function loadDependencies(callback) {}
 
 function loadServiceWorker() {
 	// Check that service workers are supported (e.g. only https)
@@ -55,19 +52,21 @@ function loadServiceWorker() {
  */
 function loadComponents() {
 	if (document.querySelector('.nav-main')) {
-		import(/* webpackChunkName: "nav-main" */ '../components/nav-main/nav-main').then((component) => {
-			component.init();
-		});
+		import(/* webpackChunkName: "nav-main" */ '../components/nav-main/nav-main').then(
+			component => {
+				component.init();
+			}
+		);
 	}
 
-	if (document.querySelector('.stage')) {
-		import(/* webpackChunkName: "stage" */ '../components/stage/stage').then((component) => {
-			component.init();
+	if (document.querySelector('[data-parallax-speed]')) {
+		import(/* webpackChunkName: "handler" */ './handle/parallax-handler').then(component => {
+			component.default();
 		});
 	}
 
 	if (document.querySelector('.slider')) {
-		import(/* webpackChunkName: "stage" */ '../components/slider/slider').then((component) => {
+		import(/* webpackChunkName: "slider" */ '../components/slider/slider').then(component => {
 			component.init();
 		});
 	}
@@ -75,9 +74,13 @@ function loadComponents() {
 	if (document.querySelector('img.lazyload')) {
 		import(/* webpackChunkName: "lazyload" */ 'lazysizes');
 	}
+
+	if (document.querySelector('.preact-list')) {
+		import(/* webpackChunkName: "preact-list" */ '../components/preact-list/preact-list');
+	}
 }
 
-(function () {
+(function() {
 	loadPolyfills(() => {
 		loadComponents();
 		loadServiceWorker();

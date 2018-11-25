@@ -1,0 +1,47 @@
+@charset "utf-8";
+
+/**
+ * Capitan list.scss v1.0.0
+ */
+
+/* ==========================================================================
+   List
+   ========================================================================== */
+
+$component: 'list';
+
+// block
+%#{$component} {
+	display: flex;
+	padding: 0;
+	margin: 0;
+
+	li {
+		list-style-type: none;
+		display: flex;
+		margin-left: 10px;
+
+		&:after {
+			content: ',';
+		}
+
+		&:first-child {
+			margin-left: 0;
+		}
+
+		&:last-child {
+			&::after {
+				display: none;
+			}
+		}
+	}
+}
+
+// element
+
+// modifier
+
+// component class selector
+.#{$component} {
+	@extend %#{$component};
+}

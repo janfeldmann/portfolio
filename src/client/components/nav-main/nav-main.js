@@ -7,27 +7,37 @@
 const _ = {
 	defaults: {
 		componentSelector: '.nav-main',
-		toggleButton: '.nav-main__toggle'
-	}
+		toggleButton: '.nav-main__toggle',
+	},
 };
 
 const o = _.defaults;
 const component = document.querySelector(o.componentSelector);
 
 function observeEvents() {
-	document.querySelector(o.toggleButton).addEventListener('click', function() {
+	document.querySelector(o.toggleButton).addEventListener('click', () => {
 		component.classList.toggle('is-active');
 	});
 
-	window.addEventListener('scroll', function () {
-		if (window.scrollY > window.innerHeight - component.scrollHeight) {
-			if (!component.classList.contains('is-scrolled')) {
-				component.classList.add('is-scrolled');
-			}
-		} else if (component.classList.contains('is-scrolled')) {
-			component.classList.remove('is-scrolled');
+	if (window.scrollY > 10) {
+		if (!component.classList.contains('is-scrolled')) {
+			component.classList.add('is-scrolled');
 		}
-	}, true);
+	}
+
+	window.addEventListener(
+		'scroll',
+		() => {
+			if (window.scrollY > 10) {
+				if (!component.classList.contains('is-scrolled')) {
+					component.classList.add('is-scrolled');
+				}
+			} else if (component.classList.contains('is-scrolled')) {
+				component.classList.remove('is-scrolled');
+			}
+		},
+		true,
+	);
 }
 
 /**
