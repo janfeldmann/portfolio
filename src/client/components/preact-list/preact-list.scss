@@ -12,8 +12,6 @@ $component: 'preact-list';
 
 // block
 %#{$component} {
-	margin-top: $grid-gutter-width * 1.5;
-
 	ul,
 	ol {
 		display: grid;
@@ -48,7 +46,7 @@ $component: 'preact-list';
 			transform: translate3d(0, -10px, 0);
 
 			i {
-				background: color('white');
+				background: color('ci');
 			}
 		}
 	}

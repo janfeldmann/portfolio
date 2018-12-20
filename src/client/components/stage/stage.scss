@@ -18,6 +18,8 @@ $component: 'stage';
 
 // block
 %#{$component} {
+	background: color('grey-lightest');
+
 	picture {
 		display: block;
 	}
@@ -33,12 +35,6 @@ $component: 'stage';
 	flex-direction: column;
 	position: relative;
 	overflow: hidden;
-	margin: 0 auto;
-	max-width: ($container-max-widths / $body-font-size-px) + em;
-
-	@include respondMin(point('min-md')) {
-		flex-direction: row;
-	}
 
 	@include respondMin(point('min-lg')) {
 		height: 100vh;
@@ -47,20 +43,8 @@ $component: 'stage';
 
 .#{$component}__content {
 	transform: translateZ(0);
-	padding: $grid-gutter-width $grid-gutter-width * 2;
+	padding: 45px 0 0;
 	align-self: center;
-	order: -1;
-
-	@include respondMin(point('min-md')) {
-		flex-basis: 60%;
-		max-width: 60%;
-		order: 0;
-	}
-
-	@include respondMin(point('min-lg')) {
-		flex-basis: 50%;
-		max-width: 50%;
-	}
 
 	h1,
 	h2 {
@@ -82,7 +66,6 @@ $component: 'stage';
 	h2 {
 		@include font($ff-heading, $typo-weight-normal);
 		@include fontSizeREM(14);
-		color: color('white');
 		animation-delay: 1000ms;
 		text-transform: none;
 		margin: 0;
@@ -91,16 +74,7 @@ $component: 'stage';
 
 .#{$component}__media {
 	position: relative;
-
-	@include respondMin(point('min-md')) {
-		flex-basis: 40%;
-		max-width: 40%;
-	}
-
-	@include respondMin(point('min-lg')) {
-		flex-basis: 50%;
-		max-width: 50%;
-	}
+	margin-top: auto;
 
 	picture {
 		overflow: hidden;
@@ -114,7 +88,7 @@ $component: 'stage';
 
 	img {
 		max-width: 100%;
-		object-fit: contain;
+		object-fit: cover;
 		opacity: 0;
 		animation-name: zoom-out;
 		animation-duration: 1000ms;

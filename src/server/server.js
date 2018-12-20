@@ -1,6 +1,7 @@
 import next from 'next';
 import express from 'express';
 import cors from 'cors';
+import './watcher';
 
 // Config
 import config from './config';

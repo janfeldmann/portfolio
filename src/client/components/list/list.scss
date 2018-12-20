@@ -21,8 +21,14 @@ $component: 'list';
 		display: flex;
 		margin-left: 10px;
 
+		a {
+			color: color('black');
+		}
+
 		&:after {
-			content: ',';
+			content: '//';
+			margin-left: 10px;
+			color: color('black');
 		}
 
 		&:first-child {

@@ -13,6 +13,9 @@ $component: 'section';
 // element
 
 // modifier
+.#{$component}--grey {
+	background: color('grey-lightest');
+}
 
 // component class selector
 .#{$component} {

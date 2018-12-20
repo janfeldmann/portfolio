@@ -4,7 +4,7 @@ import serverConfig from '../../../server/config';
 /** @jsx h */
 const components = document.querySelectorAll('.preact-list');
 const fetch = createApolloFetch({
-	uri: `${serverConfig.host}:${serverConfig.port}${serverConfig.graphqlRoute}`
+	uri: `http://37.120.161.64:1337/graphql`
 });
 
 class List extends Component {
@@ -14,8 +14,9 @@ class List extends Component {
 		this.state.listItems = [];
 
 		fetch({
-			query: '{ skills { title iconName group }}'
+			query: '{ skills { title icon group }}'
 		}).then(res => {
+			console.log(res);
 			this.setState({
 				listItems: res.data.skills
 			});
@@ -46,7 +47,7 @@ class List extends Component {
 							data-group={item.group}
 							onMouseEnter={this.highlightElements.bind(this, item)}
 						>
-							<i class={`devicons devicons-${item.iconName}`} />
+							<i class={`devicons devicons-${item.icon}`} />
 							{item.title}
 						</li>
 					);

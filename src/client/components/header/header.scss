@@ -21,8 +21,7 @@ $component: 'header';
 	z-index: 10;
 	position: fixed;
 	right: $grid-gutter-width;
-	top: $grid-gutter-width;
-	padding: 10px 0;
+	top: $grid-gutter-width * 2;
 }
 
 // element

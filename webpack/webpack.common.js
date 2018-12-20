@@ -16,6 +16,11 @@ module.exports = {
 		filename: '[name].js',
 		chunkFilename: '[name][hash].bundle.js',
 	},
+	resolve: {
+		alias: {
+			handlebars: 'handlebars/dist/handlebars.js',
+		},
+	},
 	module: {
 		// noParse: /(js\/libs\/vendor).+?(.js)$/, // tells webpack to not parse these files - regex for vendor files
 		rules: [
@@ -85,6 +90,7 @@ module.exports = {
 						options: {
 							partialDirs: [Config.paths.privateDir, Config.paths.templates.src],
 							inlineRequires: '/assets/', // inline all files that have "assets" inside their path
+							helperDirs: [`${Config.paths.templates.src}helpers/`],
 						},
 					},
 				],
