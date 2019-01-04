@@ -1,31 +1,29 @@
 const path = require('path');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+// const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+// const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Config = require('../config/config');
 
 module.exports = {
 	context: path.join(__dirname, '../'),
-	entry: {
-		main: [`${Config.paths.privateDir}js/global.js`, `${Config.paths.privateDir}sass/main.scss`],
-	},
+	entry: [
+		'webpack/hot/dev-server',
+		`${Config.paths.privateDir}index.js`,
+		`${Config.paths.styles.src}`, // TODO: Remove when all is migrated to styled components
+	],
 	output: {
 		path: Config.paths.publicDir,
 		filename: '[name].js',
 		chunkFilename: '[name][hash].bundle.js',
 	},
-	resolve: {
-		alias: {
-			handlebars: 'handlebars/dist/handlebars.js',
-		},
-	},
 	module: {
 		// noParse: /(js\/libs\/vendor).+?(.js)$/, // tells webpack to not parse these files - regex for vendor files
 		rules: [
 			{
-				test: /\.js$/,
+				test: /\.(js|jsx)$/,
 				exclude: /(node_modules|bower_components)$/,
 				use: {
 					// options are defined inside .babelrc
@@ -37,28 +35,7 @@ module.exports = {
 				use: ['file-loader'],
 			},
 			{
-				test: /main.scss$/,
-				use: ExtractTextPlugin.extract({
-					use: [
-						{
-							loader: 'css-loader', // translates CSS into CommonJS
-							options: {
-								minimize: true,
-								sourceMap: false,
-							},
-						},
-						{
-							loader: 'sass-loader', // compiles Sass to CSS
-							options: {
-								sourceMap: false,
-							},
-						},
-					],
-					fallback: 'style-loader',
-				}),
-			},
-			{
-				test: /(components)\.(css|scss)$/,
+				test: /\.(css|scss)$/,
 				use: [
 					{
 						loader: 'style-loader',
@@ -83,53 +60,56 @@ module.exports = {
 				],
 			},
 			{
-				test: /\.hbs$/,
+				test: /\.html$/,
 				use: [
 					{
-						loader: 'handlebars-loader',
-						options: {
-							partialDirs: [Config.paths.privateDir, Config.paths.templates.src],
-							inlineRequires: '/assets/', // inline all files that have "assets" inside their path
-							helperDirs: [`${Config.paths.templates.src}helpers/`],
-						},
+						loader: 'html-loader',
 					},
 				],
 			},
 		],
 	},
 	plugins: [
+		new CopyWebpackPlugin([
+			{
+				// Note:- No wildcard is specified hence will copy all files and folders
+				from: `${Config.paths.privateDir}assets/`,
+				to: `${Config.paths.publicDir}assets/`,
+				ignore: ['img/source/**/*'],
+			},
+		]),
 		new ExtractTextPlugin({
 			filename: '[name].[hash].css',
 			allChunks: true,
 		}),
 		new HtmlWebpackPlugin({
-			template: `${Config.paths.templates.src}index.hbs`,
+			template: `${Config.paths.privateDir}index.html`,
 			alwaysWriteToDisk: true,
 			inlineSource: '.(css)$',
+			filename: './index.html',
 		}),
-		new HtmlWebpackHarddiskPlugin(),
-		new HtmlWebpackInlineSourcePlugin(),
+		// new HtmlWebpackHarddiskPlugin(),
+		// new HtmlWebpackInlineSourcePlugin(),
 		// https://developers.google.com/web/tools/workbox/guides/generate-service-worker/webpack
 		// https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 		new WorkboxPlugin.GenerateSW({
 			swDest: `${Config.paths.publicDir}sw.js`,
 			// Exclude images from the precache
-			exclude: [/\.(?:png|jpg|jpeg|svg)$/, /main.js/],
+			exclude: [/\.(?:png|jpg|jpeg|svg)$/, /index.js/],
 
 			// Define runtime caching rules.
-
 			runtimeCaching: [
 				/* {
 				urlPattern: '/',
-				// Apply a cache-first strategy.
-				handler: 'networkFirst',
-				options: {
-					// Use a custom cache name.
-					cacheName: 'html',
-				},
-			}, */
+					// Apply a cache-first strategy.
+					handler: 'networkFirst',
+					options: {
+						// Use a custom cache name.
+						cacheName: 'html',
+					},
+				}, */
 				{
-					urlPattern: /main.js/,
+					urlPattern: /index.js/,
 					// Apply a cache-first strategy.
 					handler: 'networkFirst',
 					options: {

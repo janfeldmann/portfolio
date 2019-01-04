@@ -5,13 +5,13 @@ const Config = require('../config/config');
 
 module.exports = merge(common, {
 	mode: 'development',
+	// watch: true,
 	devtool: 'cheap-module-eval-source-map', // source maps provide the initial JS file before compiled by webpack - e.g. for debugging - see: https://webpack.js.org/configuration/devtool/
 	devServer: {
 		contentBase: Config.paths.publicDir,
 		port: 3000,
 		open: true,
-		proxy: {
-			"/api": "http://localhost:8080"
-		}
+		hot: true,
 	},
+	plugins: [new webpack.HotModuleReplacementPlugin()],
 });

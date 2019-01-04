@@ -3,6 +3,7 @@ const common = require('./webpack.common');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
 const Config = require('../config/config');
 
 module.exports = merge(common, {
@@ -23,7 +24,10 @@ module.exports = merge(common, {
 		new FaviconsWebpackPlugin({
 			title: 'Jan Feldmann / Frontend Developer',
 			logo: `${Config.paths.privateDir}assets/img/logo.svg`,
-			prefix: 'app-icons-[hash]/',
+			prefix: 'app-icons/',
+		}),
+		new ManifestPlugin({
+			writeToFileEmit: true,
 		}),
 	],
 });
