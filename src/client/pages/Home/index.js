@@ -52,9 +52,7 @@ class Home extends React.Component {
 						</p>
 					</div>
 				</Section>
-				<Section>
-					<Slider />
-				</Section>
+				<Section />
 				<Section id="area-contact">
 					<div className="container">
 						<header>

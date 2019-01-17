@@ -83,6 +83,22 @@ class Stage extends React.Component {
 					</StageContent>
 					<StageMedia data-parallax-speed="4">
 						<picture>
+							<source
+								media="(max-width: 480px)"
+								srcSet="assets/img/slider_bg_480.webp"
+							/>
+							<source
+								media="(max-width: 768px)"
+								srcSet="assets/img/slider_bg_768.webp"
+							/>
+							<source
+								media="(max-width: 992px)"
+								srcSet="assets/img/slider_bg_992.webp"
+							/>
+							<source
+								media="(max-width: 1200px)"
+								srcSet="assets/img/slider_bg_1200.webp"
+							/>
 							<img src="assets/img/slider_bg_1920.webp" alt="Jan Feldmann" />
 						</picture>
 					</StageMedia>

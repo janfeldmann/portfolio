@@ -29,6 +29,24 @@ const LayoutStyle = createGlobalStyle`
     outline: 0;
     max-width: 100%;
   }
+  
+  .fade-appear {
+    opacity: 0.01;
+  }
+  
+  .fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: opacity 4500ms ease-in;
+  }
+  
+  .fade-leave {
+    opacity: 1;
+  }
+  
+  .fade-leave.fade-leave-active {
+    opacity: 0.01;
+    transition: opacity 1300ms ease-in;
+  }
 `;
 
 export default LayoutStyle;

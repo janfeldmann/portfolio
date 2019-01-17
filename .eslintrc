@@ -1,5 +1,5 @@
 {
-	"extends": "airbnb-base",
+	"extends": ["airbnb-base", "eslint:recommended", "plugin:react/recommended"],
 	"rules": {
 		"max-len": ["error", { "code": 120, "ignoreStrings": true, "ignoreComments": true }],
 		"indent": ["error", "tab"],

@@ -2,18 +2,17 @@ const path = require('path');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-// const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const Config = require('../config/config');
+// TODO: Remove when all is migrated to styled components
+const entry = [`${Config.paths.privateDir}index.js`, `${Config.paths.styles.src}`];
+
+if (process.env.NODE_ENV === 'development') {
+	entry.unshift('webpack/hot/dev-server');
+}
 
 module.exports = {
 	context: path.join(__dirname, '../'),
-	entry: [
-		'webpack/hot/dev-server',
-		`${Config.paths.privateDir}index.js`,
-		`${Config.paths.styles.src}`, // TODO: Remove when all is migrated to styled components
-	],
+	entry,
 	output: {
 		path: Config.paths.publicDir,
 		filename: '[name].js',
@@ -78,18 +77,12 @@ module.exports = {
 				ignore: ['img/source/**/*'],
 			},
 		]),
-		new ExtractTextPlugin({
-			filename: '[name].[hash].css',
-			allChunks: true,
-		}),
 		new HtmlWebpackPlugin({
 			template: `${Config.paths.privateDir}index.html`,
 			alwaysWriteToDisk: true,
 			inlineSource: '.(css)$',
 			filename: './index.html',
 		}),
-		// new HtmlWebpackHarddiskPlugin(),
-		// new HtmlWebpackInlineSourcePlugin(),
 		// https://developers.google.com/web/tools/workbox/guides/generate-service-worker/webpack
 		// https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
 		new WorkboxPlugin.GenerateSW({
@@ -99,15 +92,15 @@ module.exports = {
 
 			// Define runtime caching rules.
 			runtimeCaching: [
-				/* {
-				urlPattern: '/',
+				{
+					urlPattern: '/',
 					// Apply a cache-first strategy.
 					handler: 'networkFirst',
 					options: {
 						// Use a custom cache name.
 						cacheName: 'html',
 					},
-				}, */
+				},
 				{
 					urlPattern: /index.js/,
 					// Apply a cache-first strategy.
@@ -119,7 +112,7 @@ module.exports = {
 				},
 				{
 					// Match any request ends with .png, .jpg, .jpeg or .svg.
-					urlPattern: /\.(?:png|jpg|jpeg|svg)$/,
+					urlPattern: /\.(?:png|jpg|jpeg|svg|webp)$/,
 
 					// Apply a cache-first strategy.
 					handler: 'cacheFirst',

@@ -21,6 +21,12 @@
 			{
 				"pure": true
 			}
+		],
+		[
+			"css-modules-transform",
+			{
+				"extensions": [".scss", ".css"]
+			}
 		]
 	]
 }

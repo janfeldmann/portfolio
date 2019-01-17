@@ -1,10 +1,4 @@
 ############################################
-## Optional override of deployment mode. We recommend you use the
-## command bin/magento deploy:mode:set to switch modes instead
-
-#   SetEnv MAGE_MODE production # or production or developer
-
-############################################
 ## Uncomment these lines for CGI mode.
 ## Make sure to specify the correct cgi php binary file name
 ## it might be /cgi-bin/php-cgi
@@ -129,6 +123,7 @@
                                       application/rss+xml \
                                       application/vnd.ms-fontobject \
                                       application/x-font-ttf \
+                                      application/x-font-woff2 \
                                       application/x-web-app-manifest+json \
                                       application/xhtml+xml \
                                       application/xml \
@@ -163,11 +158,8 @@
     Options +FollowSymLinks
     RewriteEngine on
 
-############################################
-## You can put here your magento root folder
-## path relative to web root
-
-    #RewriteBase /magento/
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 ############################################
 ## Workaround for HTTP authorization
@@ -243,6 +235,7 @@
     ExpiresByType image/gif                             "access plus 1 month"
     ExpiresByType image/jpeg                            "access plus 1 month"
     ExpiresByType image/png                             "access plus 1 month"
+    ExpiresByType image/webp                            "access plus 1 month"
     ExpiresByType video/mp4                             "access plus 1 month"
     ExpiresByType video/ogg                             "access plus 1 month"
     ExpiresByType video/webm                            "access plus 1 month"
@@ -252,11 +245,12 @@
     ExpiresByType application/rss+xml                   "access plus 1 hour"
 
   # Web fonts
-    ExpiresByType application/font-woff                 "access plus 1 month"
-    ExpiresByType application/vnd.ms-fontobject         "access plus 1 month"
-    ExpiresByType application/x-font-ttf                "access plus 1 month"
-    ExpiresByType font/opentype                         "access plus 1 month"
-    ExpiresByType image/svg+xml                         "access plus 1 month"
+    ExpiresByType application/font-woff                 "access plus 2 month"
+    ExpiresByType application/font-woff2                "access plus 2 month"
+    ExpiresByType application/vnd.ms-fontobject         "access plus 2 month"
+    ExpiresByType application/x-font-ttf                "access plus 2 month"
+    ExpiresByType font/opentype                         "access plus 2 month"
+    ExpiresByType image/svg+xml                         "access plus 2 month"
 
 </IfModule>
 
@@ -305,88 +299,3 @@ ErrorDocument 403 /errors/404.php
     ## Prevent clickjacking
     Header set X-Frame-Options SAMEORIGIN
 </IfModule>
-
-###########################
-# REDIRECTS FROM OLD SHOP #
-###########################
-
-Redirect 301 /ballon24/ /
-Redirect 301 /shop/index.html /
-Redirect 301 /shop/helium.html /helium.html
-Redirect 301 /shop/liefer-zahlung.html /lieferung-zahlung/
-Redirect 301 /shop/gebrauchsanweisung.html /
-Redirect 301 /shop/hilfe-faq.html /help-faq/
-Redirect 301 /shop/warum-ballon24.html /
-Redirect 301 /shop/kundenstimmen.html /
-Redirect 301 /shop/luftballons/angebot.html /komplettpakete.html
-Redirect 301 /tipps-ideen/index.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/hochzeit/index.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/jubilaeum/index.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/index.html /tipps-und-ideen/category/party/
-Redirect 301 /tipps-ideen/kindergeburtstag/index.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/familienfeste/index.html /tipps-und-ideen/category/familienfest/
-Redirect 301 /tipps-ideen/saison/index.html /tipps-und-ideen/category/saisonales/
-Redirect 301 /tipps-ideen/top10.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/familienfeste/ostern.html /tipps-und-ideen/
-Redirect 301 /sitemap.html /sitemap
-Redirect 301 /ballon24/index.html /
-Redirect 301 /ballon24/ueber-b24/index.html /
-Redirect 301 /ballon24/ueber-b24/airliquide.html /
-Redirect 301 /ballon24/partner.html /partnerprogramm
-Redirect 301 /ballon24/rechtliches/index.html /impressum
-Redirect 301 /ballon24/rechtliches/nutzungsbedingungen.html /impressum
-Redirect 301 /ballon24/rechtliches/agb.html /agb
-Redirect 301 /ballon24/rechtliches/datenschutz.html /datenschutz
-Redirect 301 /ballon24/rechtliches/impressum.html /impressum
-Redirect 301 /ballon24/kontakt.html /contact/
-Redirect 301 /shop/paketauspacken.html /tipps-und-ideen/
-Redirect 301 /shop/luftballons/warenkorb.html /ballons.html
-Redirect 301 /shop/luftballons/bestellung.html /ballons.html
-Redirect 301 /shop/luftballons/dummy.html /ballons.html
-Redirect 301 /tipps-ideen/saison/muttertag.html /tipps-und-ideen/post/tipps-und-ideen-zum-muttertag/
-Redirect 301 /tipps-ideen/hochzeit/junggesellenabschied.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/heiratsantrag.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/saison/oktoberfest.html /tipps-und-ideen/post/tipps-und-ideen-zum-oktoberfest/
-Redirect 301 /tipps-ideen/saison/halloween.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/saison/karneval.html /tipps-und-ideen/post/tipps-und-ideen-zu-karneval/
-Redirect 301 /tipps-ideen/saison/silvester.html /tipps-und-ideen/post/tipps-und-ideen-zu-silvester/
-Redirect 301 /tipps-ideen/saison/valentinstag.html /tipps-und-ideen/post/tipps-und-ideen-zum-valentinstag/
-Redirect 301 /tipps-ideen/saison/ostern.html /tipps-und-ideen/post/tipps-und-ideen-zum-osterfest/
-Redirect 301 /tipps-ideen/party/gartenparty.html /tipps-und-ideen/post/tipps-und-ideen-zur-gartenparty/
-Redirect 301 /tipps-ideen/party/babyparty.html /tipps-und-ideen/post/tipps-und-ideen-zur-baby-shower-party/
-Redirect 301 /tipps-ideen/hochzeit/polterabend.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/trauzeuge.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitsgastgeber.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitsdekoration.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitsgast.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitsgeschenke.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitsspiele.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitsstreiche.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/hochzeitssprueche.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/flitterwochen.html /tipps-und-ideen/post/tipps-und-ideen-zur-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/silberhochzeit.html /tipps-und-ideen/post/tipps-und-ideen-zur-silbernen-und-goldenen-hochzeit/
-Redirect 301 /tipps-ideen/hochzeit/goldhochzeit.html /tipps-und-ideen/post/tipps-und-ideen-zur-silbernen-und-goldenen-hochzeit/
-Redirect 301 /tipps-ideen/jubilaeum/runder_geburtstag.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/jubilaeum/silberhochzeit.html /tipps-und-ideen/post/tipps-und-ideen-zur-silbernen-und-goldenen-hochzeit/
-Redirect 301 /tipps-ideen/jubilaeum/goldhochzeit.html /tipps-und-ideen/post/tipps-und-ideen-zur-silbernen-und-goldenen-hochzeit/
-Redirect 301 /tipps-ideen/party/betriebsfest.html /tipps-und-ideen/post/tipps-und-ideen-zum-betriebsfest/
-Redirect 301 /tipps-ideen/party/partyeinladung.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/partycheckliste.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/partydekoration.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/essen-trinken.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/gaesteempfang.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/partyspiele.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/unterhaltung.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/geschenkideen.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/mottoparty.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/geburtstagsparty.html /tipps-und-ideen/
-Redirect 301 /tipps-ideen/party/runder_geburtstag.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/party/kindergeburtstag.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/party/abiparty.html /tipps-und-ideen/post/tipps-und-ideen-zur-abschlussparty/
-Redirect 301 /tipps-ideen/kindergeburtstag/vorbereitungen.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/kindergeburtstag/einladungen.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/kindergeburtstag/dekoration.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/kindergeburtstag/spieledraussen.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/kindergeburtstag/spieledrinnen.html /tipps-und-ideen/post/tipps-und-ideen-zur-geburtstagsparty/
-Redirect 301 /tipps-ideen/familienfeste/taufe.html /tipps-und-ideen/post/tipps-und-ideen-zur-taufe/
-Redirect 301 /tipps-ideen/familienfeste/kirchenfeste.html /tipps-und-ideen/post/tipps-und-ideen-zur-kommunion-and-konfirmation/
