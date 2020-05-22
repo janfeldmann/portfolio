@@ -16,7 +16,7 @@ module.exports = {
 	output: {
 		path: Config.paths.publicDir,
 		filename: '[name].js',
-		chunkFilename: '[name][hash].bundle.js',
+		chunkFilename: '[name][hash].bundle.js'
 	},
 	module: {
 		// noParse: /(js\/libs\/vendor).+?(.js)$/, // tells webpack to not parse these files - regex for vendor files
@@ -26,12 +26,12 @@ module.exports = {
 				exclude: /(node_modules|bower_components)$/,
 				use: {
 					// options are defined inside .babelrc
-					loader: 'babel-loader?cacheDirectory',
-				},
+					loader: 'babel-loader?cacheDirectory'
+				}
 			},
 			{
 				test: /\.(png|svg|jpg|gif|webp|webm|woff|woff2|eot|ttf)$/,
-				use: ['file-loader'],
+				use: ['file-loader']
 			},
 			{
 				test: /\.(css|scss)$/,
@@ -40,48 +40,50 @@ module.exports = {
 						loader: 'style-loader',
 						options: {
 							minimize: process.env.NODE_ENV === 'production',
-							sourceMap: false,
-						},
+							sourceMap: false
+						}
 					},
 					{
 						loader: 'css-loader',
 						options: {
 							minimize: process.env.NODE_ENV === 'production',
-							sourceMap: false,
-						},
+							sourceMap: false
+						}
 					},
 					{
-						loader: 'resolve-url-loader',
+						loader: 'resolve-url-loader'
 					},
 					{
-						loader: 'sass-loader', // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
-					},
-				],
+						loader: 'sass-loader' // TODO: split betwenn dev and production - generate separate CSS files when importing SASS? --> https://github.com/webpack-contrib/sass-loader#in-production
+					}
+				]
 			},
 			{
 				test: /\.html$/,
 				use: [
 					{
-						loader: 'html-loader',
-					},
-				],
-			},
-		],
+						loader: 'html-loader'
+					}
+				]
+			}
+		]
 	},
 	plugins: [
-		new CopyWebpackPlugin([
-			{
-				// Note:- No wildcard is specified hence will copy all files and folders
-				from: `${Config.paths.privateDir}assets/`,
-				to: `${Config.paths.publicDir}assets/`,
-				ignore: ['img/source/**/*'],
-			},
-		]),
+		new CopyWebpackPlugin({
+			patterns: [
+				{
+					// Note:- No wildcard is specified hence will copy all files and folders
+					from: `${Config.paths.privateDir}assets/`,
+					to: `${Config.paths.publicDir}assets/`
+					// ignore: ['img/source/**/*']
+				}
+			]
+		}),
 		new HtmlWebpackPlugin({
 			template: `${Config.paths.privateDir}index.html`,
 			alwaysWriteToDisk: true,
 			inlineSource: '.(css)$',
-			filename: './index.html',
+			filename: './index.html'
 		}),
 		// https://developers.google.com/web/tools/workbox/guides/generate-service-worker/webpack
 		// https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin
@@ -98,8 +100,8 @@ module.exports = {
 					handler: 'networkFirst',
 					options: {
 						// Use a custom cache name.
-						cacheName: 'html',
-					},
+						cacheName: 'html'
+					}
 				},
 				{
 					urlPattern: /index.js/,
@@ -107,8 +109,8 @@ module.exports = {
 					handler: 'networkFirst',
 					options: {
 						// Use a custom cache name.
-						cacheName: 'javascript',
-					},
+						cacheName: 'javascript'
+					}
 				},
 				{
 					// Match any request ends with .png, .jpg, .jpeg or .svg.
@@ -123,11 +125,11 @@ module.exports = {
 
 						// Only cache 10 images.
 						expiration: {
-							maxEntries: 10,
-						},
-					},
-				},
-			],
-		}),
-	],
+							maxEntries: 10
+						}
+					}
+				}
+			]
+		})
+	]
 };
