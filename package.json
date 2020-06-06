@@ -79,7 +79,7 @@
 		"@babel/node": "7.0.0",
 		"@glidejs/glide": "3.2.4",
 		"apollo-fetch": "0.7.0",
-		"apollo-server-express": "2.2.2",
+		"apollo-server-express": "2.14.2",
 		"basicscroll": "^2.1.1",
 		"body-parser": "1.18.3",
 		"bootstrap": "^4.5.0",
