@@ -1,0 +1,44 @@
+@charset "utf-8";
+
+/**
+ * Capitan utils.scss v1.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * https://www.brandung.de/
+ *
+ * Date: 2016-04-05
+ * MIT License (MIT)
+ */
+
+
+/* ==========================================================================
+   Util classes
+   ========================================================================== */
+
+/** + bootstrap visibility utilities */
+.util-hidden,
+.util-visible-xs,
+.util-visible-sm,
+.util-visible-md,
+.util-visible-lg,
+.util-visible-xl {
+	display: none !important;
+}
+
+$sizes: ('xs', 'sm', 'md', 'lg', 'xl');
+
+@each $size in $sizes {
+	@include respondMin(point('min-#{$size}')) {
+		.util-visible-#{$size} {
+			display: block !important;
+		}
+
+		span.util-visible-#{$size} {
+			display: inline !important;
+		}
+
+		.util-hidden-#{$size} {
+			display: none !important;
+		}
+	}
+}

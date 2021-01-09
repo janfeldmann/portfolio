@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+/**
+ * Capitan layout.scss v2.0.0
+ *
+ * Copyright brandung GmbH & Co.KG
+ * https://www.brandung.de/
+ *
+ * Date: 2016-09-05
+ * MIT License (MIT)
+ */
+
+/* ==========================================================================
+   Global Layout
+   ========================================================================== */
+
+* {
+	@include prefix(box-sizing, border-box);
+}
+
+html,
+body {
+	font-size: $body-font-size;
+	//min-height: 100vh;
+}
+
+body {
+	@include font();
+	background: color('white');
+	color: color('grey-dark');
+	line-height: 1.4;
+	margin: 0;
+	position: relative;
+}
+
+[data-parallax-speed] {
+	transform: translateY(var(--translateY));
+	will-change: transform;
+}
+
+/* ==========================================================================
+   Grid overrides
+   ========================================================================== */
+
+// Row
+.row {
+	margin-bottom: spacer('half');
+
+	// smaller offset on mobile
+	@include respondMax(point('max-xs')) {
+		margin: 0 (-$grid-gutter-width / 4);
+	}
+
+	// fix for incorrect use of row without columns
+	& > *:not([class*='col-']) {
+		width: 100%;
+		flex-basis: 100%;
+	}
+}
+
+.row--divided {
+	@include respondMin(point('min-md')) {
+		margin: 0 (-40px);
+	}
+
+	& > [class*='col-'] {
+		&:first-child {
+			@include respondMin(point('min-md')) {
+				border-right: 1px solid color('grey-light');
+			}
+		}
+
+		.btn-group {
+			@include respondMin(point('min-md')) {
+				margin-top: auto;
+			}
+		}
+
+		@include respondMin(point('min-md')) {
+			padding: 0 40px;
+			display: flex;
+			flex-direction: column;
+		}
+	}
+}
+
+[class*='col-'] {
+	// smaller offset on mobile
+	@include respondMax(point('max-xs')) {
+		padding: 0 spacer('half');
+	}
+}
+
+/* ==========================================================================
+  Content Elements
+  ========================================================================== */
+
+hr {
+	margin: 20px 0;
+	border-top: 1px solid color('grey-light');
+}
