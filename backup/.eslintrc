@@ -1,0 +1,13 @@
+{
+	"extends": ["airbnb-base", "eslint:recommended", "plugin:react/recommended"],
+	"rules": {
+		"max-len": ["error", { "code": 120, "ignoreStrings": true, "ignoreComments": true }],
+		"indent": ["error", "tab"],
+		"no-tabs": "off",
+		"linebreak-style": 0
+	},
+	"env": {
+		"browser": true,
+		"jquery": true
+	}
+}
