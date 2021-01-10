@@ -97,6 +97,7 @@ export default ({ data }) => {
                 <StageImage>
                     <Img
                         fluid={data.imgMe.childImageSharp.fluid}
+                        critical
                         imgStyle={{
                             mixBlendMode: 'screen',
                             filter: 'contrast(0.75) brightness(1.25)',
