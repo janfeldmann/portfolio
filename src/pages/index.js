@@ -94,7 +94,7 @@ export default ({ data }) => {
                     </h1>
                     <h2>Full-Stack Entwickler mit Passion für digitale Produkte.</h2>
                 </StageContent>
-                <StageImage>
+                {/* <StageImage>
                     <Img
                         fluid={data.imgMe.childImageSharp.fluid}
                         loading="eager"
@@ -105,7 +105,7 @@ export default ({ data }) => {
                             objectPosition: 'center top',
                         }}
                     />
-                </StageImage>
+                </StageImage> */}
             </section>
             <section className="section section--ci">
                 <div
