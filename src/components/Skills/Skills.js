@@ -51,7 +51,6 @@ class Skills extends React.Component {
         return (
             <StyledSkills>
                 {this?.props?.items.map((item, index) => {
-                    console.log(item.image);
                     return (
                         <li key={index}>
                             {item.image ? <img src={item.image} alt={item.title} /> : <i className={item.class ? item.class : `devicons devicons-${item.icon}`} />}

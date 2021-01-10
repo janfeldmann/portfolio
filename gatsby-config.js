@@ -7,6 +7,8 @@ module.exports = {
         description: `All about Jan Feldmann`,
     },
     plugins: [
+        'gatsby-plugin-robots-txt',
+        `gatsby-plugin-sitemap`,
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -14,7 +16,7 @@ module.exports = {
                 path: path.join(__dirname, `src`, `assets`, `images`),
             },
         },
-        `gatsby-plugin-react-head`,
+        `gatsby-plugin-react-helmet`,
         `gatsby-plugin-image`,
         {
             resolve: `gatsby-plugin-sharp`,
@@ -70,12 +72,12 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: `GatsbyJS`,
-                short_name: `GatsbyJS`,
+                name: `Jan Feldmann Portfolio`,
+                short_name: `Jan Feldmann`,
                 start_url: `/`,
                 icon: './src/assets/images/logo.png',
-                background_color: `#f7f0eb`,
-                theme_color: `#a2466c`,
+                background_color: `#130037`,
+                theme_color: `#3dff8d`,
                 display: `standalone`,
             },
         },

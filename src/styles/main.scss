@@ -25,7 +25,7 @@ h1,
 .h1 {
     //   text-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
     //   mix-blend-mode: color-dodge;
-    font-size: 6rem;
+    font-size: 2.5rem;
     color: #3dff8d;
     position: relative;
     z-index: 1;
@@ -40,13 +40,31 @@ h1,
         text-transform: none;
         margin-bottom: 1rem;
     }
+
+    @media screen and (min-width: 480px) {
+        font-size: 3rem;
+    }
+
+    @media screen and (min-width: 768px) {
+        font-size: 4.5rem;
+    }
+
+    @media screen and (min-width: 992px) {
+        font-size: 6rem;
+    }
 }
 
 h2 {
-    //   text-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-    //   mix-blend-mode: color-dodge;
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: 300;
+
+    @media screen and (min-width: 480px) {
+        font-size: 1.6rem;
+    }
+
+    @media screen and (min-width: 992px) {
+        font-size: 2rem;
+    }
 }
 
 footer {
@@ -76,6 +94,16 @@ footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    &--stage {
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+
+        @media screen and (min-width: 768px) {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
 
     &--ci {
         background: #3dff8d;
@@ -117,8 +145,16 @@ footer {
 
     h2 {
         font-weight: 700;
-        font-size: 2rem;
+        font-size: 1.2rem;
         margin: 0;
+
+        @media screen and (min-width: 480px) {
+            font-size: 1.6rem;
+        }
+
+        @media screen and (min-width: 992px) {
+            font-size: 2rem;
+        }
     }
 
     p {
@@ -134,4 +170,5 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 40px;
 }

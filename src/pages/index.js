@@ -2,10 +2,10 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Img from 'gatsby-image';
-import Row from 'antd/lib/row';
-import Col from 'antd/lib/col';
+import Row from 'antd/es/row';
+import Col from 'antd/es/col';
 // import { StaticImage } from 'gatsby-plugin-image';
-import { Title, Link, Meta } from 'react-head';
+import { Helmet } from 'react-helmet';
 
 import 'antd/lib/grid/style/index.css';
 // import Navigation from 'components/Navigation/Navigation';
@@ -29,17 +29,61 @@ const TileWrapper = styled.div`
     }
 `;
 
+const StageContent = styled.div`
+    margin-left: 10vw;
+
+    h2 {
+        max-width: 400px;
+    }
+`;
+
+const StageImage = styled.div`
+    width: 100vw;
+    height: 60vh;
+    /* margin-left: -20vw; */
+    overflow: hidden;
+    margin-bottom: 40px;
+
+    @media screen and (min-width: 380px) {
+        width: 70vw;
+        height: 50vh;
+    }
+
+    @media screen and (min-width: 480px) {
+        width: 50vw;
+        height: 50vh;
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 40vw;
+        margin: 0;
+        height: 100vh;
+        margin-left: -20vw;
+    }
+`;
+
+const StyledRow = styled(Row)`
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    @media screen and (min-width: 992px) {
+        margin-top: 80px;
+        margin-bottom: 80px;
+    }
+`;
+
 export default ({ data }) => {
     return (
         <>
-            <Title>Jan Feldmann</Title>
+            <Helmet>
+                <html lang="de" />
+                <title>Jan Feldmann | Full-Stack Entwickler</title>
+                <meta name="description" content="Ich bin zertifizierter Full-Stack Web-Entwickler mit langjähriger Erfahrung und Passion für digitale Produkte."></meta>
+            </Helmet>
             {/* <Navigation /> */}
-            <section className="section">
-                <div
-                    style={{
-                        marginLeft: '10vw',
-                    }}
-                >
+            <section className="section section--stage">
+                <StageContent>
                     <h1>
                         <span>
                             Hallo,
@@ -48,25 +92,18 @@ export default ({ data }) => {
                         </span>{' '}
                         Jan<span>.</span>
                     </h1>
-                    <h2 style={{ maxWidth: '400px' }}>Full-Stack Entwickler mit Passion für digitale Produkte.</h2>
-                </div>
-                <div
-                    style={{
-                        width: '40vw',
-                        height: '100vh',
-                        marginLeft: '-20vw',
-                        overflow: 'hidden',
-                    }}
-                >
+                    <h2>Full-Stack Entwickler mit Passion für digitale Produkte.</h2>
+                </StageContent>
+                <StageImage>
                     <Img
-                        fluid={data.imgMe.childImageSharp.fixed}
+                        fluid={data.imgMe.childImageSharp.fluid}
                         imgStyle={{
                             mixBlendMode: 'screen',
                             filter: 'contrast(0.75) brightness(1.25)',
                             objectPosition: 'center top',
                         }}
                     />
-                </div>
+                </StageImage>
             </section>
             <section className="section section--ci">
                 <div
@@ -79,16 +116,11 @@ export default ({ data }) => {
                         <span>Vielseitige</span> Skills
                     </h2>
 
-                    <Row
-                        gutter={60}
-                        style={{
-                            alignItems: 'center',
-                            width: '100%',
-                            marginTop: '80px',
-                            marginBottom: '80px',
-                        }}
-                    >
-                        <Col md={12} lg={10}>
+                    <StyledRow gutter={60}>
+                        <Col sm={{ span: 14, offset: 5 }} md={{ span: 12, offset: 6 }} lg={{ span: 8, order: 2, offset: 0 }} xl={{ span: 8, offset: 1 }}>
+                            <img src={data.imgFrontend.publicURL} width="100%" alt="Frontend" />
+                        </Col>
+                        <Col lg={16} xl={11}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <div className="intro">
@@ -154,20 +186,12 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                        <Col xs={18} sm={{ span: 14 }} md={{ span: 6 }} lg={{ span: 8, offset: 1 }}>
-                            <img src={data.imgFrontend.publicURL} width="100%" alt="Frontend" />
+                    </StyledRow>
+                    <StyledRow gutter={60}>
+                        <Col sm={{ span: 14, offset: 5 }} md={{ span: 12, offset: 6 }} lg={{ span: 9, offset: 1 }} xl={{ span: 8, offset: 2 }}>
+                            <img src={data.imgBackend.publicURL} width="100%" alt="Backend" />
                         </Col>
-                    </Row>
-                    <Row
-                        gutter={60}
-                        style={{
-                            alignItems: 'center',
-                            width: '100%',
-                            marginTop: '80px',
-                            marginBottom: '80px',
-                        }}
-                    >
-                        <Col md={{ span: 12 }} lg={{ span: 11, offset: 2, order: 2 }}>
+                        <Col lg={{ span: 12, offset: 2 }} xl={{ span: 11 }}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <div className="intro">
@@ -216,20 +240,12 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                        <Col xs={18} sm={{ span: 14 }} md={{ span: 6 }} lg={{ span: 8, offset: 2 }}>
-                            <img src={data.imgBackend.publicURL} width="100%" alt="Backend" />
+                    </StyledRow>
+                    <StyledRow gutter={60}>
+                        <Col sm={{ span: 14, offset: 5 }} md={{ span: 12, offset: 6 }} lg={{ span: 8, order: 2, offset: 1 }} xl={{ span: 8, offset: 1 }}>
+                            <img src={data.imgCMS.publicURL} width="100%" alt="CMS/ E-Commerce" />
                         </Col>
-                    </Row>
-                    <Row
-                        gutter={60}
-                        style={{
-                            alignItems: 'center',
-                            width: '100%',
-                            marginTop: '80px',
-                            marginBottom: '80px',
-                        }}
-                    >
-                        <Col md={12} lg={{ span: 9, offset: 1 }}>
+                        <Col lg={{ span: 14 }} xl={{ span: 10, offset: 1 }}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <div className="intro">
@@ -261,19 +277,9 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                        <Col xs={18} sm={{ span: 14 }} md={{ span: 6 }} lg={{ span: 8, offset: 2 }}>
-                            <img src={data.imgCMS.publicURL} width="100%" alt="CMS/ E-Commerce" />
-                        </Col>
-                    </Row>
-                    <Row
-                        gutter={60}
-                        style={{
-                            width: '100%',
-                            marginTop: '80px',
-                            marginBottom: '80px',
-                        }}
-                    >
-                        <Col lg={6} xl={{ span: 8, offset: 2 }}>
+                    </StyledRow>
+                    <StyledRow gutter={60}>
+                        <Col md={12} xl={{ span: 8, offset: 2 }}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <img src={data.imgVersioning.publicURL} height="150" style={{ marginBottom: '10px' }} alt="Backend" />
@@ -306,7 +312,7 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                        <Col lg={6} xl={9}>
+                        <Col md={12} xl={9}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <img src={data.imgCompile.publicURL} height="150" style={{ marginBottom: '10px' }} alt="Automatisierung" />
@@ -349,16 +355,9 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                    </Row>
-                    <Row
-                        gutter={60}
-                        style={{
-                            width: '100%',
-                            marginTop: '80px',
-                            marginBottom: '80px',
-                        }}
-                    >
-                        <Col lg={6} xl={{ span: 10, offset: 3 }}>
+                    </StyledRow>
+                    <StyledRow gutter={60}>
+                        <Col md={12} xl={{ span: 10, offset: 3 }}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <img src={data.imgAgile.publicURL} height="150" style={{ marginBottom: '10px' }} alt="Backend" />
@@ -392,7 +391,7 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                        <Col lg={6} xl={8}>
+                        <Col md={12} xl={8}>
                             <ParallaxCard>
                                 <TileWrapper>
                                     <img src={data.imgTeam.publicURL} height="150" style={{ marginBottom: '10px' }} alt="Leitung" />
@@ -408,7 +407,7 @@ export default ({ data }) => {
                                 </TileWrapper>
                             </ParallaxCard>
                         </Col>
-                    </Row>
+                    </StyledRow>
                 </div>
             </section>
             <section
@@ -420,10 +419,10 @@ export default ({ data }) => {
                 <div
                     style={{
                         marginLeft: '10vw',
-                        width: '100%',
+                        width: 'calc(100% - 20vw)',
                     }}
                 >
-                    <h2 className="h1" style={{ marginBottom: '60px' }}>
+                    <h2 className="h1" style={{ marginBottom: '2rem' }}>
                         <span>Berufliche</span> <strong>Stationen</strong>
                     </h2>
                     <Timeline />
@@ -485,8 +484,8 @@ export const query = graphql`
             childImageSharp {
                 # Specify the image processing specifications right in the query.
                 # Makes it trivial to update as your page's design changes.
-                fixed(width: 800, height: 904, cropFocus: NORTH) {
-                    ...GatsbyImageSharpFixed
+                fluid(maxWidth: 800, maxHeight: 904, cropFocus: NORTH) {
+                    ...GatsbyImageSharpFluid_withWebp
                 }
             }
         }

@@ -7,6 +7,7 @@ const StyledParallaxCard = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
+    touch-action: none;
 
     .panel-container {
         transform: perspective(400px) rotateX(0deg) rotateY(0deg);
@@ -27,12 +28,16 @@ const StyledParallaxCard = styled.div`
     }
 
     li {
-        transform: translate3d(20px, -10px, 40px) scale(0.8);
+        @media screen and (min-width: 1024px) {
+            transform: translate3d(20px, -10px, 40px) scale(0.8);
+        }
         pointer-events: none;
     }
 
     img {
-        transform: translate3d(0, 40px, 60px) scale(0.8);
+        @media screen and (min-width: 1024px) {
+            transform: translate3d(0, 40px, 60px) scale(0.8);
+        }
         pointer-events: none;
     }
 `;
@@ -53,20 +58,32 @@ const ParallaxCard = (props) => {
     let transformAmount = 5;
 
     useEffect(() => {
-        panelRef.current.onmousemove = transformPanel;
-        panelRef.current.onmouseenter = handleMouseEnter;
-        panelRef.current.onmouseleave = handleMouseLeave;
+        panelRef.current.addEventListener('mousemove', transformPanel, { passive: true });
+        panelRef.current.addEventListener('mouseenter', handleStart, { passive: true });
+        panelRef.current.addEventListener('mouseleave', handleEnd, { passive: true });
+
+        panelRef.current.addEventListener('touchmove', transformPanel, { passive: true });
+        panelRef.current.addEventListener('touchstart', handleStart, { passive: true });
+        panelRef.current.addEventListener('touchend', handleEnd, { passive: true });
 
         return () => {
-            panelRef.current.onmousemove = null;
-            panelRef.current.onmouseenter = null;
-            panelRef.current.onmouseleave = null;
+            panelRef.current.removeEventListener('mouseenter');
+            panelRef.current.removeEventListener('mousemove');
+            panelRef.current.removeEventListener('mouseleave');
+
+            panelRef.current.removeEventListener('touchstart');
+            panelRef.current.removeEventListener('touchmove');
+            panelRef.current.removeEventListener('touchend');
         };
     }, []);
 
-    const transformPanel = (mouseEvent) => {
-        mouseX = mouseEvent.layerX;
-        mouseY = mouseEvent.layerY;
+    /**
+     * Set the transformation during movement
+     * @param {*} inputEvent
+     */
+    const transformPanel = (inputEvent) => {
+        mouseX = inputEvent?.layerX || inputEvent?.touches?.[0]?.clientX || null;
+        mouseY = inputEvent?.layerY || inputEvent?.touches?.[0]?.clientY || null;
 
         const centerX = panelRef.current.offsetLeft + panelRef.current.clientWidth / 2;
         const centerY = panelRef.current.offsetTop + panelRef.current.clientHeight / 2;
@@ -76,14 +93,20 @@ const ParallaxCard = (props) => {
         subPanelRef.current.style.transform = 'perspective(400px) rotateY(' + percentX * transformAmount + 'deg) rotateX(' + percentY * transformAmount + 'deg)';
     };
 
-    const handleMouseEnter = () => {
+    /**
+     * Set the starting transformation
+     */
+    const handleStart = () => {
         setTimeout(() => {
             subPanelRef.current.style.transition = 'transform 0.1s';
         }, 100);
         subPanelRef.current.style.transition = 'transform 0.25s';
     };
 
-    const handleMouseLeave = () => {
+    /**
+     * Set the ending transformation
+     */
+    const handleEnd = () => {
         subPanelRef.current.style.transition = 'transform 0.4s ease';
 
         subPanelRef.current.style.transform = 'perspective(400px) rotateY(0deg) rotateX(0deg)';
@@ -93,9 +116,7 @@ const ParallaxCard = (props) => {
         <StyledParallaxCard ref={panelRef}>
             <div className="panel-container" ref={subPanelRef}>
                 <>
-                    {props.image && (
-                        <ImageWrapper src="https://images.unsplash.com/photo-1550587542-1668407b73d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" />
-                    )}
+                    {props.image && <ImageWrapper src={props.image} />}
                     <div className="panel-content">{props.children}</div>
                 </>
             </div>

@@ -1,13 +1,15 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 // import { StaticImage } from 'gatsby-plugin-image';
-import { Title } from 'react-head';
+import { Helmet } from 'react-helmet';
 import '../styles/main.scss';
 
 export default ({ data }) => {
     return (
         <>
-            <Title>Jan Feldmann | 404 Seite nicht gefunden</Title>
+            <Helmet>
+                <title>Jan Feldmann | 404 Seite nicht gefunden</title>
+            </Helmet>
             {/* <Navigation /> */}
             <section className="section">
                 <div style={{ textAlign: 'center', width: '100%' }}>
