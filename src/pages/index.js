@@ -97,7 +97,8 @@ export default ({ data }) => {
                 <StageImage>
                     <Img
                         fluid={data.imgMe.childImageSharp.fluid}
-                        critical
+                        loading="eager"
+                        fadeIn={false}
                         imgStyle={{
                             mixBlendMode: 'screen',
                             filter: 'contrast(0.75) brightness(1.25)',
@@ -486,7 +487,7 @@ export const query = graphql`
                 # Specify the image processing specifications right in the query.
                 # Makes it trivial to update as your page's design changes.
                 fluid(maxWidth: 800, maxHeight: 904, cropFocus: NORTH) {
-                    ...GatsbyImageSharpFluid_withWebp
+                    ...GatsbyImageSharpFluid_withWebp_noBase64
                 }
             }
         }
