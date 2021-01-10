@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import 'devicons/css/devicons.scss';
-import 'devicon/devicon.min.css';
+// import 'devicons/css/devicons.scss';
+// import 'devicon/devicon.min.css';
 
 const StyledSkills = styled.ul`
     display: flex;
